@@ -1,4 +1,4 @@
-1.) cut dummy dh_components command
+1.) cut dummy dh_components command                             12/09/2010
 2.) sequence installation in debhelper
 3.) create perl module as core of dh_components
 4.) Add mandatory arguments
