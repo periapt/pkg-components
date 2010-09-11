@@ -1,0 +1,15 @@
+Source: dh-component
+Section: admin
+Priority: extra
+Maintainer: Nicholas Bamber <nicholas@periapt.co.uk>
+Build-Depends: debhelper (>= 7.0.50~)
+Standards-Version: 3.9.1
+Homepage: http://lists.debian.org/debian-devel/2010/09/msg00208.html
+Vcs-Git: git://github.com:periapt/dh-component.git
+Vcs-Browser: http://github.com/periapt/dh-component
+
+Package: dh-component
+Architecture: all
+Depends: ${misc:Depends}
+Description: <insert up to 60 chars description>
+ <insert long description, indented with spaces>
