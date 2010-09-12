@@ -4,13 +4,14 @@ use warnings;
 use strict;
 use Carp;
 
-use version; our $VERSION = qv('0.0.1');
+our $VERSION = '0.1';
 
-# Other recommended modules (uncomment to use):
-#  use IO::Prompt;
-#  use Perl6::Export;
-#  use Perl6::Slurp;
-#  use Perl6::Say;
+sub new {
+    my $class = shift;
+    my $self = {};
+    bless $self, $class;
+    return $self;
+}
 
 
 # Module implementation here
@@ -21,39 +22,38 @@ __END__
 
 =head1 NAME
 
-Debian::Debhelper::Dh_components - [One line description of module's purpose here]
+Debian::Debhelper::Dh_components - Implementation of Debian components handling
 
 
 =head1 VERSION
 
-This document describes Debian::Debhelper::Dh_components version 0.0.1
+This document describes Debian::Debhelper::Dh_components version 0.1
 
 
 =head1 SYNOPSIS
 
     use Debian::Debhelper::Dh_components;
-
-=for author to fill in:
-    Brief code example(s) here showing commonest usage(s).
-    This section will be as far as many users bother reading
-    so make it as educational and exeplary as possible.
-  
+    my $components = Debian::Debhelper::Dh_components->new;
   
 =head1 DESCRIPTION
 
-=for author to fill in:
-    Write a full description of the module and its features here.
-    Use subsections (=head2, =head3) as appropriate.
+Back-end for C<dh_components> command. The module has three tasks:
 
+=over 
+
+=item merging of documents (not implemented);
+
+=item merging of C<substvar> merging (not implemented);
+
+=item cascading implementation of component build process (not implemented).
+
+=back
 
 =head1 INTERFACE 
 
-=for author to fill in:
-    Write a separate section listing the public components of the modules
-    interface. These normally consist of either subroutines that may be
-    exported, or methods that may be called on objects belonging to the
-    classes provided by the module.
+=head2 new
 
+Normal constructor which does nothing at present.
 
 =head1 DIAGNOSTICS
 
