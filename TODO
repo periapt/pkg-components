@@ -5,18 +5,19 @@
 5.) Look for debian/components directory                        12/09/2010
 6.) Identify build stages [hard coded]                          12/09/2010
 7.) Iterate through components
-8.) Identify which rules files handle which targets
-9.) Implement build process functionality
-10.) man pages                                                  12/09/2010
-11.) Add example perl rules
-12.) Experiment with libwww-search-perl
-13.) Add default rules
-14.) Add dh_component_clean
-15.) Add functionality for managing copyright like files
-16.) Experiment with libwww-search-perl
-17.) Add functionality for creating substvar variables
-18.) Experiment with libwww-search-perl
-19.) uscan wrapper
-20.) Experiment with libwww-search-perl
-21.) Fix copyright
-22.) Get Lintian cleanliness
+8.) Allow stopping build stages at given stage
+9.) Identify which rules files handle which targets
+10.) Implement build process functionality
+11.) man pages                                                  12/09/2010
+12.) Add example perl rules
+13.) Experiment with libwww-search-perl
+14.) Add default rules
+15.) Add dh_component_clean
+16.) Add functionality for managing copyright like files
+17.) Experiment with libwww-search-perl
+18.) Add functionality for creating substvar variables
+19.) Experiment with libwww-search-perl
+20.) uscan wrapper
+21.) Experiment with libwww-search-perl
+22.) Fix copyright
+23.) Get Lintian cleanliness
