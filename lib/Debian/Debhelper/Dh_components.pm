@@ -89,6 +89,14 @@ The second is the package name.
 This returns the build stages in the order in which they should occur:
 copy, patch, config, build, test, install.
 
+=head2 directory
+
+This returns the directory name that was passed to the cotructor.
+
+=head2 package
+
+This returns the package name that was passed to the cotructor.
+
 =head1 DIAGNOSTICS
 
 =for author to fill in:
