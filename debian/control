@@ -2,7 +2,7 @@ Source: dh-component
 Section: admin
 Priority: extra
 Maintainer: Nicholas Bamber <nicholas@periapt.co.uk>
-Build-Depends: debhelper (>= 7.0.50~)
+Build-Depends: debhelper (>= 7.0.50~), libtest-pod-coverage-perl
 Standards-Version: 3.9.1
 Homepage: http://lists.debian.org/debian-devel/2010/09/msg00208.html
 Vcs-Git: git://github.com:periapt/dh-component.git
