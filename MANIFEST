@@ -1,3 +1,4 @@
+MANIFEST.SKIP
 bin/dh_components
 Build.PL
 debian/changelog
