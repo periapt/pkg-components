@@ -1,2 +1,2 @@
 ^debian/.*
-/\.git
+\.git
