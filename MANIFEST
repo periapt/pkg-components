@@ -3,16 +3,6 @@ Build.PL
 debian/changelog
 debian/compat
 debian/control
-debian/dh-component.debhelper.log
-debian/dh-component.substvars
-debian/dh-component/DEBIAN/control
-debian/dh-component/DEBIAN/md5sums
-debian/dh-component/usr/bin/dh_components
-debian/dh-component/usr/share/doc/dh-component/changelog.gz
-debian/dh-component/usr/share/doc/dh-component/README.gz
-debian/dh-component/usr/share/man/man3/Debian::Debhelper::Dh_components.3pm.gz
-debian/dh-component/usr/share/perl5/Debian/Debhelper/Dh_components.pm
-debian/dh-component/usr/share/perl5/Debian/Debhelper/Sequence/components.pm
 debian/docs
 debian/files
 debian/install
@@ -24,10 +14,6 @@ MANIFEST			This list of files
 README
 t/00.load.t
 t/01.basic.t
-t/manifest.t
-t/perlcritic.t
 t/pod-coverage.t
 t/pod.t
-t/podspell.t
-t/prereq.t
 TODO
