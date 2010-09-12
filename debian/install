@@ -1,1 +1,2 @@
 bin/dh_components usr/bin/
+lib/Debian/Debhelper/Sequence/components.pm usr/share/perl5/Debian/Debhelper/Sequence/
