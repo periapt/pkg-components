@@ -1,5 +1,5 @@
 ---
-abstract: 'Implementation of Debian components handling'
+abstract: 'Data for Debian components handling'
 author:
   - 'Nicholas Bamber <nicholas@periapt.co.uk>'
 build_requires:

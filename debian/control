@@ -10,6 +10,6 @@ Vcs-Browser: http://github.com/periapt/dh-component
 
 Package: dh-component
 Architecture: all
-Depends: ${misc:Depends}
+Depends: ${misc:Depends}, ${perl:Depends}
 Description: <insert up to 60 chars description>
  <insert long description, indented with spaces>

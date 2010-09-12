@@ -7,7 +7,7 @@
 7.) Iterate through components
 8.) Identify which rules files handle which targets
 9.) Implement build process functionality
-10.) man pages
+10.) man pages                                                  12/09/2010
 11.) Add example perl rules
 12.) Experiment with libwww-search-perl
 13.) Add default rules
