@@ -1,5 +1,9 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
+use Debian::Debhelper::Dh_Lib;
+
+init();
+
 exit(0);
 
