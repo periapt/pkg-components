@@ -8,7 +8,8 @@ our $VERSION = '0.1';
 
 sub new {
     my $class = shift;
-    my $self = {};
+    my $dir = shift;
+    my $self = {dir=>$dir};
     bless $self, $class;
     return $self;
 }
@@ -22,7 +23,7 @@ __END__
 
 =head1 NAME
 
-Debian::Debhelper::Dh_components - Implementation of Debian components handling
+Debian::Debhelper::Dh_components - Data for Debian components handling
 
 
 =head1 VERSION

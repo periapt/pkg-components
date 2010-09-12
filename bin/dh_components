@@ -31,4 +31,43 @@ sub find_components_dir {
     return;
 }
 
+=head1 NAME
 
+dh_components - build additional components
+
+=head1 SYNOPSIS
+
+B<dh_components> [S<I<debhelper options>>]
+
+=head1 DESCRIPTION
+
+C<dh_components> is a debhelper program that is responsible for handling
+additional components that come from separate upstream sources.
+
+=head1 FILES
+
+=over 4
+
+=item debian/I<package>.components
+
+=item debian/components
+
+These directories contain all the component data for a given binary package.
+The second form only works for the first binary in a source package and is
+overridden by the equivalent first form.
+
+=back
+
+=head1 SEE ALSO
+
+L<debhelper(1)>
+
+This program is a part of debhelper.
+
+L<lintian(1)>
+
+=head1 AUTHOR
+
+Nicholas Bamber <nicholas@periapt.co.uk>
+
+=cut

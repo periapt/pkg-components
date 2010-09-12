@@ -2,7 +2,7 @@
 2.) sequence installation in debhelper                          12/09/2010
 3.) create perl module as core of dh_components                 12/09/2010
 4.) Add mandatory arguments                                     12/09/2010
-5.) Look for debian/components directory
+5.) Look for debian/components directory                        12/09/2010
 6.) Identify targets
 7.) Iterate through components
 8.) Identify which rules files handle which targets
