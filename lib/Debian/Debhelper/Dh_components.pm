@@ -3,15 +3,41 @@ package Debian::Debhelper::Dh_components;
 use warnings;
 use strict;
 use Carp;
+use Readonly;
+
+Readonly my @BUILD_STAGES => (
+    'copy',
+    'patch',
+    'config',
+    'build',
+    'test',
+    'install'
+);
 
 our $VERSION = '0.1';
 
 sub new {
     my $class = shift;
     my $dir = shift;
-    my $self = {dir=>$dir};
+    my $package = shift;
+    my $self = {dir=>$dir, package=>$package};
     bless $self, $class;
     return $self;
+}
+
+sub build_stages { 
+    my $self = shift;
+    return @BUILD_STAGES;
+}
+
+sub directory {
+    my $self = shift;
+    return $self->{dir};
+}
+
+sub package {
+    my $self = shift;
+    return $self->{package};
 }
 
 
@@ -54,7 +80,14 @@ Back-end for C<dh_components> command. The module has three tasks:
 
 =head2 new
 
-Normal constructor which does nothing at present.
+This is a constructor which takes a two arguments. The first is the path
+to a components directory. Typically this will just be C<debian/components>.
+The second is the package name.
+
+=head2 build_stages
+
+This returns the build stages in the order in which they should occur:
+copy, patch, config, build, test, install.
 
 =head1 DIAGNOSTICS
 

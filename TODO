@@ -3,7 +3,7 @@
 3.) create perl module as core of dh_components                 12/09/2010
 4.) Add mandatory arguments                                     12/09/2010
 5.) Look for debian/components directory                        12/09/2010
-6.) Identify targets
+6.) Identify build stages [hard coded]                          12/09/2010
 7.) Iterate through components
 8.) Identify which rules files handle which targets
 9.) Implement build process functionality
@@ -19,3 +19,4 @@
 19.) uscan wrapper
 20.) Experiment with libwww-search-perl
 21.) Fix copyright
+22.) Get Lintian cleanliness

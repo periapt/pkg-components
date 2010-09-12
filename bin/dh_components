@@ -13,7 +13,7 @@ foreach my $package (getpackages()) {
 
     verbose_print("Found directory: $dir");
 
-    my $components = Debian::Debhelper::Dh_components->new($dir);
+    my $components = Debian::Debhelper::Dh_components->new($dir, $package);
 
 }
 
@@ -58,11 +58,17 @@ overridden by the equivalent first form.
 
 =back
 
+=head1 CONFIGURATION
+
+To enable this module it is necessary to pass the argument
+C<--with components> to the C<dh> programa in the C<debian/rules>
+file.
+
 =head1 SEE ALSO
 
 L<debhelper(1)>
 
-This program is a part of debhelper.
+This program is used with debhelper. 
 
 L<lintian(1)>
 
