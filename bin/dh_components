@@ -6,7 +6,29 @@ use Debian::Debhelper::Dh_components;
 
 init();
 
-my $components = Debian::Debhelper::Dh_components->new;
+foreach my $package (getpackages()) {
+
+    my $dir = find_components_dir($package);
+    next if !$dir;
+
+    verbose_print("Found directory: $dir");
+
+    my $components = Debian::Debhelper::Dh_components->new($dir);
+
+}
 
 exit(0);
+
+sub find_components_dir {
+    my $package = shift;
+
+    my $dir = "debian/$package.components";
+    return $dir if -d $dir;
+
+    $dir = "debian/components";
+    return $dir if -d $dir && $package eq $dh{FIRSTPACKAGE};
+
+    return;
+}
+
 
