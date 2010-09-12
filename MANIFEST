@@ -23,6 +23,7 @@ lib/Debian/Debhelper/Sequence/components.pm
 MANIFEST			This list of files
 README
 t/00.load.t
+t/01.basic.t
 t/manifest.t
 t/perlcritic.t
 t/pod-coverage.t
