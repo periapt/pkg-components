@@ -2,14 +2,18 @@
 2.) sequence installation in debhelper
 3.) create perl module as core of dh_components
 4.) Add mandatory arguments
-5.) Implement build process functionality
-6.) Add example perl rules
-7.) Experiment with libwww-search-perl
-8.) Add default rules
-9.) Add functionality for managing copyright like files
-10.) Experiment with libwww-search-perl
-11.) Add functionality for creating substvar variables
+5.) Look for debian/components directory
+6.) Identify targets
+7.) Iterate through components
+8.) Identify which rules files handle which targets
+9.) Implement build process functionality
+10.) man pages
+11.) Add example perl rules
 12.) Experiment with libwww-search-perl
-13.) uscan wrapper
-14.) Experiment with libwww-search-perl
-
+13.) Add default rules
+14.) Add functionality for managing copyright like files
+15.) Experiment with libwww-search-perl
+16.) Add functionality for creating substvar variables
+17.) Experiment with libwww-search-perl
+18.) uscan wrapper
+19.) Experiment with libwww-search-perl
