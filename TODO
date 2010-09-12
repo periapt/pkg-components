@@ -1,5 +1,5 @@
 1.) cut dummy dh_components command                             12/09/2010
-2.) sequence installation in debhelper
+2.) sequence installation in debhelper                          12/09/2010
 3.) create perl module as core of dh_components
 4.) Add mandatory arguments
 5.) Look for debian/components directory
@@ -11,9 +11,10 @@
 11.) Add example perl rules
 12.) Experiment with libwww-search-perl
 13.) Add default rules
-14.) Add functionality for managing copyright like files
-15.) Experiment with libwww-search-perl
-16.) Add functionality for creating substvar variables
-17.) Experiment with libwww-search-perl
-18.) uscan wrapper
-19.) Experiment with libwww-search-perl
+14.) Add dh_component_clean
+15.) Add functionality for managing copyright like files
+16.) Experiment with libwww-search-perl
+17.) Add functionality for creating substvar variables
+18.) Experiment with libwww-search-perl
+19.) uscan wrapper
+20.) Experiment with libwww-search-perl
