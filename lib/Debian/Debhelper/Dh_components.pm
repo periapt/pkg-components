@@ -4,6 +4,7 @@ use warnings;
 use strict;
 use Carp;
 use Readonly;
+use DirHandle;
 
 Readonly my @BUILD_STAGES => (
     'copy',
@@ -20,7 +21,16 @@ sub new {
     my $class = shift;
     my $dir = shift;
     my $package = shift;
-    my $self = {dir=>$dir, package=>$package};
+    my $self = {dir=>$dir, package=>$package, components=>[]};
+
+    my $dir_handle = DirHandle->new($self->{dir});
+    if ($dir_handle) {
+        while(my $file = $dir_handle->read) {
+            if (-d "$self->{dir}/$file" and $file !~ /^\./) {
+                push @{$self->{components}}, $file;
+            }
+        }
+    }
     bless $self, $class;
     return $self;
 }
@@ -40,6 +50,10 @@ sub package {
     return $self->{package};
 }
 
+sub components {
+    my $self = shift;
+    return @{$self->{components}};
+}
 
 # Module implementation here
 
@@ -91,11 +105,15 @@ copy, patch, config, build, test, install.
 
 =head2 directory
 
-This returns the directory name that was passed to the cotructor.
+This returns the directory name that was passed to the constructor.
 
 =head2 package
 
-This returns the package name that was passed to the cotructor.
+This returns the package name that was passed to the constructor.
+
+=head2 components
+
+This returns an array listing the components found in that component directory.
 
 =head1 DIAGNOSTICS
 

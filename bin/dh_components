@@ -56,6 +56,11 @@ These directories contain all the component data for a given binary package.
 The second form only works for the first binary in a source package and is
 overridden by the equivalent first form.
 
+=item debian/components/I<component>
+
+This is a directory that contains the files specific to that component.
+In some ways it is like a cut-down version of the debian directoty.
+
 =back
 
 =head1 CONFIGURATION
@@ -70,7 +75,7 @@ L<debhelper(1)>
 
 This program is used with debhelper. 
 
-L<lintian(1)>
+L<quilt(1)>
 
 =head1 AUTHOR
 
