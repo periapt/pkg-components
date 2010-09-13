@@ -4,7 +4,7 @@
 4.) Add mandatory arguments                                     12/09/2010
 5.) Look for debian/components directory                        12/09/2010
 6.) Identify build stages [hard coded]                          12/09/2010
-7.) Iterate through components
+7.) Iterate through components                                  13/09/2010
 8.) Allow stopping build stages at given stage
 9.) Identify which rules files handle which targets
 10.) Implement build process functionality

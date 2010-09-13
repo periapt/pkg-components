@@ -11,10 +11,14 @@ foreach my $package (getpackages()) {
     my $dir = find_components_dir($package);
     next if !$dir;
 
-    verbose_print("Found directory: $dir");
-
     my $components = Debian::Debhelper::Dh_components->new($dir, $package);
+    my @build_stages = $components->build_stages;
 
+    foreach my $c ($components->components) {
+        foreach my $bs (@build_stages) {
+            verbose_print("$bs: $c\[$package\]");
+        }
+    }
 }
 
 exit(0);
