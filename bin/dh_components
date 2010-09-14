@@ -41,7 +41,7 @@ dh_components - build additional components
 
 =head1 SYNOPSIS
 
-B<dh_components> [S<I<debhelper options>>]
+B<dh_components> [S<I<debhelper options>>] [B<--components> I<comp>[,I<comp>,...]]  [B<--build_stages> I<stage>[,I<stage>,...]] 
 
 =head1 DESCRIPTION
 
