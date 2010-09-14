@@ -4,18 +4,30 @@ use warnings;
 use Debian::Debhelper::Dh_Lib;
 use Debian::Debhelper::Dh_components;
 
-init();
+init(options=>{
+    "components" => \@{$dh{COMPONENTS}},
+    "build_stages" => \@{$dh{BUILD_STAGES}},
+});
 
 foreach my $package (getpackages()) {
 
     my $dir = find_components_dir($package);
     next if !$dir;
 
-    my $components = Debian::Debhelper::Dh_components->new($dir, $package);
-    my @build_stages = $components->build_stages;
+    my $component_data = Debian::Debhelper::Dh_components->new($dir, $package);
 
-    foreach my $c ($components->components) {
-        foreach my $bs (@build_stages) {
+    if (! @{$dh{BUILD_STAGES}}) {
+         @{$dh{BUILD_STAGES}} = $component_data->build_stages;
+    }
+
+COMPONENTS:
+    foreach my $c ($component_data->components) {
+
+        if (@{$dh{COMPONENTS}}) {
+            next COMPONENTS if not grep {$c eq $_} @{$dh{COMPONENTS}};
+        }
+
+        foreach my $bs (@{$dh{BUILD_STAGES}}) {
             verbose_print("$bs: $c\[$package\]");
         }
     }
