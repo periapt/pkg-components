@@ -17,10 +17,10 @@ foreach my $package (getpackages()) {
     next if !$dir;
 
     my %args = (dir=>$dir, package=>$package);
-    if (exists $dh{BUILD_STAGES}) {
+    if ($dh{BUILD_STAGES}) {
         $args{build_stages} = [split $COMMA_RE, $dh{BUILD_STAGES}];
     }
-    if (exists $dh{COMPONENTS}) {
+    if ($dh{COMPONENTS}) {
         $args{components} = [split $COMMA_RE, $dh{COMPONENTS}];
     }
 
