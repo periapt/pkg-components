@@ -1,4 +1,4 @@
-use Test::More tests => 5;
+use Test::More tests => 6;
 use Debian::Debhelper::Dh_components;
 
 my $components = Debian::Debhelper::Dh_components->new(
@@ -19,4 +19,6 @@ is($components->package, 'Test1', 'package');
 
 my @comps = sort $components->components;
 is_deeply(\@comps, ['comp1', 'comp2', 'comp3'], 'component listing');
+
+is($components->script('comp1','copy'),'etc/dh_components/copy', 'copy');
 
