@@ -7,7 +7,7 @@
 7.) man pages                                                   12/09/2010
 8.) Iterate through components                                  13/09/2010
 9.) Allow stopping build stages at given stage                  16/09/2010
-10.) test cases for components and build stages
+10.) test cases for components and build stages                 16/09/2010
 11.) Identify which rules files handle which targets
 12.) Implement build process functionality
 13.) Add example perl rules
