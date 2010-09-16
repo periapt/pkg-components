@@ -3,10 +3,12 @@ use strict;
 use warnings;
 use Debian::Debhelper::Dh_Lib;
 use Debian::Debhelper::Dh_components;
+use Readonly;
+Readonly my $COMMA_RE => qr/,/;
 
 init(options=>{
-    "components" => \@{$dh{COMPONENTS}},
-    "build_stages" => \@{$dh{BUILD_STAGES}},
+    "components=s" => \$dh{COMPONENTS},
+    "build_stages=s" => \$dh{BUILD_STAGES},
 });
 
 foreach my $package (getpackages()) {
@@ -14,20 +16,19 @@ foreach my $package (getpackages()) {
     my $dir = find_components_dir($package);
     next if !$dir;
 
-    my $component_data = Debian::Debhelper::Dh_components->new($dir, $package);
-
-    if (! @{$dh{BUILD_STAGES}}) {
-         @{$dh{BUILD_STAGES}} = $component_data->build_stages;
+    my %args = (dir=>$dir, package=>$package);
+    if (exists $dh{BUILD_STAGES}) {
+        $args{build_stages} = [split $COMMA_RE, $dh{BUILD_STAGES}];
+    }
+    if (exists $dh{COMPONENTS}) {
+        $args{components} = [split $COMMA_RE, $dh{COMPONENTS}];
     }
 
-COMPONENTS:
+    my $component_data = Debian::Debhelper::Dh_components->new(%args);
+
     foreach my $c ($component_data->components) {
 
-        if (@{$dh{COMPONENTS}}) {
-            next COMPONENTS if not grep {$c eq $_} @{$dh{COMPONENTS}};
-        }
-
-        foreach my $bs (@{$dh{BUILD_STAGES}}) {
+        foreach my $bs ($component_data->build_stages) {
             verbose_print("$bs: $c\[$package\]");
         }
     }
@@ -76,6 +77,21 @@ overridden by the equivalent first form.
 
 This is a directory that contains the files specific to that component.
 In some ways it is like a cut-down version of the debian directoty.
+
+=back
+
+=head1 OPTIONS
+
+=over 4
+
+=item B<--build_stages b1,b2,...>
+
+If this option is listed the sequence described will be used instead
+of the normal one.
+
+=item B<--components c1,c2,...>
+
+If this option is listed only those components listed will be considered.
 
 =back
 

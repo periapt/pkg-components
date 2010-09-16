@@ -6,29 +6,38 @@ use Carp;
 use Readonly;
 use DirHandle;
 
-Readonly my @BUILD_STAGES => (
+Readonly my $BUILD_STAGES => [
     'copy',
     'patch',
     'config',
     'build',
     'test',
     'install'
-);
+];
 
 our $VERSION = '0.1';
 
 sub new {
     my $class = shift;
-    my $dir = shift;
-    my $package = shift;
-    my $self = {dir=>$dir, package=>$package, components=>[]};
+    my %args   = @_;
+    $args{build_stages} ||= $BUILD_STAGES;
+
+    my $components_specified = exists $args{components};
+    my %components;
+    if ($components_specified) {
+        %components = map {$_ => 1} @{$args{components}};
+    }
+    $args{components} = [];
+
+    my $self = \%args;
 
     my $dir_handle = DirHandle->new($self->{dir});
     if ($dir_handle) {
         while(my $file = $dir_handle->read) {
-            if (-d "$self->{dir}/$file" and $file !~ /^\./) {
-                push @{$self->{components}}, $file;
-            }
+            next if $file =~ /^\./;
+            next if not -d "$self->{dir}/$file";
+            next if $components_specified and not exists $components{$file};
+            push @{$self->{components}}, $file;
         }
     }
     bless $self, $class;
@@ -37,7 +46,7 @@ sub new {
 
 sub build_stages { 
     my $self = shift;
-    return @BUILD_STAGES;
+    return @{$self->{build_stages}};
 }
 
 sub directory {
@@ -94,9 +103,13 @@ Back-end for C<dh_components> command. The module has three tasks:
 
 =head2 new
 
-This is a constructor which takes a two arguments. The first is the path
-to a components directory. Typically this will just be C<debian/components>.
-The second is the package name.
+This is a constructor which takes a number of named arguments. The first
+mandatory argument, C<dir>, is the path to a components directory. Typically
+this will just be C<debian/components>. The second, C<package>, is the
+package name. If the C<build_stages> argument, an array reference, is given
+this will override the normal sequence of build stages. If the C<component>
+parameter, an array reference, is set only those components listed will
+be considered.
 
 =head2 build_stages
 

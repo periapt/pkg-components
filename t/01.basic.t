@@ -1,7 +1,10 @@
 use Test::More tests => 5;
 use Debian::Debhelper::Dh_components;
 
-my $components = Debian::Debhelper::Dh_components->new('t/data/test1', 'Test1');
+my $components = Debian::Debhelper::Dh_components->new(
+    dir=>'t/data/test1',
+    package=> 'Test1'
+);
 isa_ok($components, 'Debian::Debhelper::Dh_components');
 
 my $bs = join '|', $components->build_stages;
