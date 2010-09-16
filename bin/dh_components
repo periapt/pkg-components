@@ -9,6 +9,7 @@ Readonly my $COMMA_RE => qr/,/;
 init(options=>{
     "components=s" => \$dh{COMPONENTS},
     "build_stages=s" => \$dh{BUILD_STAGES},
+    "rules_locations=s" => \$dh{RULES_LOCATIONS},
 });
 
 foreach my $package (getpackages()) {
@@ -22,6 +23,9 @@ foreach my $package (getpackages()) {
     }
     if ($dh{COMPONENTS}) {
         $args{components} = [split $COMMA_RE, $dh{COMPONENTS}];
+    }
+    if ($dh{RULE_LOCATIONS}) {
+        $args{rules_locations} = [split $COMMA_RE, $dh{RULES_LOCATIONS}];
     }
 
     my $component_data = Debian::Debhelper::Dh_components->new(%args);
@@ -54,7 +58,7 @@ dh_components - build additional components
 
 =head1 SYNOPSIS
 
-B<dh_components> [S<I<debhelper options>>] [B<--components> I<comp>[,I<comp>,...]]  [B<--build_stages> I<stage>[,I<stage>,...]] 
+B<dh_components> [S<I<debhelper options>>] [B<--components> I<comp>[,I<comp>,...]]  [B<--build_stages> I<stage>[,I<stage>,...]]  [B<--rules_locations> I<dir>[,I<dir>,...]] 
 
 =head1 DESCRIPTION
 
@@ -76,7 +80,17 @@ overridden by the equivalent first form.
 =item debian/components/I<component>
 
 This is a directory that contains the files specific to that component.
-In some ways it is like a cut-down version of the debian directoty.
+In some ways it is like a cut-down version of the debian directory.
+
+=item debian/components/I<component>
+
+=item debian/components/
+
+=item /etc/dh_components/
+
+These are the default locations of the build stage scripts in the order of 
+precedence with highest first. These can be overridden using the
+C<--rules_locations>.
 
 =back
 
@@ -92,6 +106,14 @@ of the normal one.
 =item B<--components c1,c2,...>
 
 If this option is listed only those components listed will be considered.
+
+=item B<--rules_locations r1,r2,...>
+
+If this option is listed the specified locations will be used instead
+of the default ones. One can use C<%> to mean the component. Thus to
+explicitly specify the default one would set:
+
+    --rules_locations debian/components/%,debian/components,/etc/dh_components
 
 =back
 

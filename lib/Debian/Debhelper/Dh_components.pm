@@ -15,12 +15,19 @@ Readonly my $BUILD_STAGES => [
     'install'
 ];
 
+Readonly my $RULES_LOCATIONS => [
+    'debian/components/%',
+    'debian/components',
+    '/etc/dh_components',
+];
+
 our $VERSION = '0.1';
 
 sub new {
     my $class = shift;
     my %args   = @_;
     $args{build_stages} ||= $BUILD_STAGES;
+    $args{rules_locations} ||= $RULES_LOCATIONS;
 
     my $components_specified = exists $args{components};
     my %components;
@@ -31,6 +38,8 @@ sub new {
 
     my $self = \%args;
 
+    bless $self, $class;
+
     my $dir_handle = DirHandle->new($self->{dir});
     if ($dir_handle) {
         while(my $file = $dir_handle->read) {
@@ -40,7 +49,7 @@ sub new {
             push @{$self->{components}}, $file;
         }
     }
-    bless $self, $class;
+
     return $self;
 }
 
@@ -62,6 +71,23 @@ sub package {
 sub components {
     my $self = shift;
     return @{$self->{components}};
+}
+
+sub script {
+    my $self = shift;
+    my $component = shift;
+    my $build_stage = shift;
+
+    return undef if ! grep {$component eq $_} $self->components;
+    return undef if ! grep {$build_stage eq $_} $self->build_stages;
+
+    foreach my $loc (@{$self->{rule_locations}}) {
+        $loc =~ s{%}{$component}g;
+        my $script = "$loc/$build_stage";
+        return $script if -x $script;
+    }
+
+    return undef;
 }
 
 # Module implementation here
@@ -103,13 +129,35 @@ Back-end for C<dh_components> command. The module has three tasks:
 
 =head2 new
 
-This is a constructor which takes a number of named arguments. The first
-mandatory argument, C<dir>, is the path to a components directory. Typically
-this will just be C<debian/components>. The second, C<package>, is the
-package name. If the C<build_stages> argument, an array reference, is given
-this will override the normal sequence of build stages. If the C<component>
-parameter, an array reference, is set only those components listed will
+This is a constructor which takes a number of named arguments.
+
+=over 4
+
+=item C<dir>
+
+This is the path to a components directory. Typically
+this will just be C<debian/components>. This argument is mandatory.
+
+=item C<package>
+
+This is the package name and is mandatory.
+
+=item C<build_stages>
+
+If this argument, an array reference, is given it will override the normal
+sequence of build stages.
+
+=item  C<component>
+
+If this parameter, an array reference, is set only those components listed will
 be considered.
+
+=item C<rules_locations>
+
+If this parameter, an array reference, is given it will override the normal
+location of build stage scripts.
+
+=back
 
 =head2 build_stages
 
@@ -128,74 +176,22 @@ This returns the package name that was passed to the constructor.
 
 This returns an array listing the components found in that component directory.
 
-=head1 DIAGNOSTICS
+=head2 script
 
-=for author to fill in:
-    List every single error and warning message that the module can
-    generate (even the ones that will "never happen"), with a full
-    explanation of each problem, one or more likely causes, and any
-    suggested remedies.
-
-=over
-
-=item C<< Error message here, perhaps with %s placeholders >>
-
-[Description of error here]
-
-=item C<< Another error message here >>
-
-[Description of error here]
-
-[Et cetera, et cetera]
-
-=back
-
+This method takes two arguments, the component and the build stage, and returns
+the script that needs to be run.
 
 =head1 CONFIGURATION AND ENVIRONMENT
 
-=for author to fill in:
-    A full explanation of any configuration system(s) used by the
-    module, including the names and locations of any configuration
-    files, and the meaning of any environment variables or properties
-    that can be set. These descriptions must also include details of any
-    configuration language used.
-  
 Debian::Debhelper::Dh_components requires no configuration files or environment variables.
-
 
 =head1 DEPENDENCIES
 
-=for author to fill in:
-    A list of all the other modules that this module relies upon,
-    including any restrictions on versions, and an indication whether
-    the module is part of the standard Perl distribution, part of the
-    module's distribution, or must be installed separately. ]
-
 None.
-
-
-=head1 INCOMPATIBILITIES
-
-=for author to fill in:
-    A list of any modules that this module cannot be used in conjunction
-    with. This may be due to name conflicts in the interface, or
-    competition for system or program resources, or due to internal
-    limitations of Perl (for example, many modules that use source code
-    filters are mutually incompatible).
-
-None reported.
-
 
 =head1 BUGS AND LIMITATIONS
 
-=for author to fill in:
-    A list of known problems with the module, together with some
-    indication Whether they are likely to be fixed in an upcoming
-    release. Also a list of restrictions on the features the module
-    does provide: data types that cannot be handled, performance issues
-    and the circumstances in which they may arise, practical
-    limitations on the size of data sets, special cases that are not
-    (yet) handled, etc.
+This module is only really intended for Debian and related systems.
 
 No bugs have been reported.
 

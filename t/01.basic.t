@@ -3,7 +3,12 @@ use Debian::Debhelper::Dh_components;
 
 my $components = Debian::Debhelper::Dh_components->new(
     dir=>'t/data/test1',
-    package=> 'Test1'
+    package=> 'Test1',
+    rules_locations=>[
+        't/data/test1/%',
+        't/data/test1',
+        'etc/dh_components',
+    ],
 );
 isa_ok($components, 'Debian::Debhelper::Dh_components');
 
