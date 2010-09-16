@@ -82,8 +82,9 @@ sub script {
     return undef if ! grep {$build_stage eq $_} $self->build_stages;
 
     foreach my $loc (@{$self->{rules_locations}}) {
-        $loc =~ s{%}{$component}g;
-        my $script = "$loc/$build_stage";
+        my $thisloc = $loc;
+        $thisloc =~ s{%}{$component}g;
+        my $script = "$thisloc/$build_stage";
         return $script if -x $script;
     }
 
