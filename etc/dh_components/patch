@@ -1,0 +1,25 @@
+#!/usr/bin/make -f
+
+TDIR=COMPONENTS/${DH_COMPONENT}
+SDIR=debian/components/${DH_COMPONENT}
+
+main: check quilt
+
+check:
+	@test -n ${DH_COMPONENT} && test -d ${TDIR}
+
+series : ${TDIR}/debian/patches/series
+
+${TDIR}/debian/patches/series : ${TDIR}/debian/patches
+	touch ${TDIR}/debian/patches/series
+
+${TDIR}/debian/patches : ${TDIR}/debian
+	(! test -d ${SDIR}/patches) || ln -s ../../../${SDIR}/patches ${TDIR}/debian/patches
+	mkdir -p ${TDIR}/debian/patches
+
+${TDIR}/debian : ${TDIR}
+	mkdir -p ${TDIR}/debian
+
+quilt:	series
+	cd ${TDIR} && ((test -z `quilt series') || (quilt push -a)) && cd -
+
