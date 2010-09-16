@@ -11,7 +11,7 @@
 11.) Identify which rules files handle which targets            16/09/2010
 12.) Implement build process functionality                      16/09/2010
 13.) Add example perl rules
-14.) Experiment with libwww-search-perl
+14.) Experiment with libwww-search-perl                         16/09/2010
 15.) Add default rules
 16.) Add dh_component_clean
 17.) Add functionality for managing copyright like files
