@@ -34,7 +34,7 @@ foreach my $package (getpackages()) {
 
         foreach my $bs ($component_data->build_stages) {
             my $script = $component_data->script($c, $bs);
-            my $command = "DH_COMPONENT = $c $script";
+            my $command = "DH_COMPONENT=$c $script";
             doit($command);
         }
     }
