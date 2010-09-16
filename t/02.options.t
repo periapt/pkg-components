@@ -1,4 +1,4 @@
-use Test::More tests => 5;
+use Test::More tests => 8;
 use Debian::Debhelper::Dh_components;
 
 my $components = Debian::Debhelper::Dh_components->new(
@@ -6,6 +6,10 @@ my $components = Debian::Debhelper::Dh_components->new(
     package=> 'Test1',
     build_stages=>['blah','bargle','boogie'],
     components=>['mungle1','comp2','mungle2'],
+    rules_locations=>[
+        't/data/test1/%',
+        't/data/test1',
+    ],
 );
 isa_ok($components, 'Debian::Debhelper::Dh_components');
 
@@ -16,4 +20,9 @@ is($components->package, 'Test1', 'package');
 
 my @comps = sort $components->components;
 is_deeply(\@comps, ['comp2'], 'component listing');
+
+is($components->script('comp2','bargle'),"t/data/test1/bargle", 'bargle');
+is($components->script('comp2','boogie'),"t/data/test1/comp2/boogie", 'boogie');
+is($components->script('comp2','blah'),undef, 'blah');
+
 

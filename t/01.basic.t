@@ -1,4 +1,4 @@
-use Test::More tests => 17;
+use Test::More tests => 23;
 use Debian::Debhelper::Dh_components;
 
 my $components = Debian::Debhelper::Dh_components->new(
@@ -28,5 +28,11 @@ foreach my $bs ($components->build_stages) {
     is($components->script('comp2',$bs),"t/data/test1/comp2/$bs", $bs);
 }
 
+foreach my $bs ($components->build_stages) {
+    is($components->script('comp3',$bs),
+        $bs eq 'patch'
+            ? "t/data/test1/comp3/$bs"
+            : "etc/dh_components/$bs", $bs);
+}
 
 
