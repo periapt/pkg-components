@@ -1,2 +1,6 @@
 ^debian/.*
 \.git
+^MYMETA.yml$
+^_build
+^Build$
+^blib

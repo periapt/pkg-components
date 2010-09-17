@@ -18,7 +18,7 @@ Readonly my $BUILD_STAGES => [
 Readonly my $RULES_LOCATIONS => [
     'debian/components/%',
     'debian/components',
-    '/etc/dh_components',
+    '/usr/share/pkg-components/build_stages',
 ];
 
 our $VERSION = '0.1';

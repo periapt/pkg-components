@@ -88,7 +88,7 @@ In some ways it is like a cut-down version of the debian directory.
 
 =item debian/components/
 
-=item /etc/dh_components/
+=item /usr/share/pkg-components/build_stages
 
 These are the default locations of the build stage scripts in the order of 
 precedence with highest first. These can be overridden using the
@@ -115,7 +115,7 @@ If this option is listed the specified locations will be used instead
 of the default ones. One can use C<%> to mean the component. Thus to
 explicitly specify the default one would set:
 
-    --rules_locations debian/components/%,debian/components,/etc/dh_components
+    --rules_locations debian/components/%,debian/components,/usr/share/pkg-components/build_stages
 
 =back
 

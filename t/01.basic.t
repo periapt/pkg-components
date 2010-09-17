@@ -7,7 +7,7 @@ my $components = Debian::Debhelper::Dh_components->new(
     rules_locations=>[
         't/data/test1/%',
         't/data/test1',
-        'etc/dh_components',
+        'build_stages',
     ],
 );
 isa_ok($components, 'Debian::Debhelper::Dh_components');
@@ -21,7 +21,7 @@ my @comps = sort $components->components;
 is_deeply(\@comps, ['comp1', 'comp2', 'comp3'], 'component listing');
 
 foreach my $bs ($components->build_stages) {
-    is($components->script('comp1',$bs),"etc/dh_components/$bs", $bs);
+    is($components->script('comp1',$bs),"build_stages/$bs", $bs);
 }
 
 foreach my $bs ($components->build_stages) {
@@ -32,7 +32,7 @@ foreach my $bs ($components->build_stages) {
     is($components->script('comp3',$bs),
         $bs eq 'patch'
             ? "t/data/test1/comp3/$bs"
-            : "etc/dh_components/$bs", $bs);
+            : "build_stages/$bs", $bs);
 }
 
 
