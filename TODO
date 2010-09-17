@@ -10,15 +10,21 @@
 10.) test cases for components and build stages                 16/09/2010
 11.) Identify which rules files handle which targets            16/09/2010
 12.) Implement build process functionality                      16/09/2010
-13.) Add example perl rules
 14.) Experiment with libwww-search-perl                         16/09/2010
-15.) Add default rules
-16.) Add dh_component_clean
-17.) Add functionality for managing copyright like files
-18.) Experiment with libwww-search-perl
-19.) Add functionality for creating substvar variables
-20.) Experiment with libwww-search-perl
-21.) uscan wrapper
-22.) Experiment with libwww-search-perl
-23.) Fix copyright
-24.) Get Lintian cleanliness
+15.) Create copy rules                                          16/09/2010
+16.) Create patch rules                                         17/09/2010
+17.) Fix package name
+18.) Create config rules
+19.) Create build rules
+20.) Create test rules
+21.) Create install rules
+22.) Add dh_component_clean
+23.) Integrate with dpkg-buildpackage
+24.) Add functionality for managing copyright like files
+25.) Experiment with libwww-search-perl
+26.) Add functionality for creating substvar variables
+27.) Experiment with libwww-search-perl
+28.) uscan wrapper
+29.) Experiment with libwww-search-perl
+30.) Fix copyright
+31.) Get Lintian cleanliness
