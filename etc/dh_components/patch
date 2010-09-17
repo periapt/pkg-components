@@ -1,25 +1,56 @@
-#!/usr/bin/make -f
+#!/bin/sh
 
 TDIR=COMPONENTS/${DH_COMPONENT}
 SDIR=debian/components/${DH_COMPONENT}
 
-main: check quilt
+if [ -z ${DH_COMPONENT} ]
+then
+    echo DH_COMPONENT not set
+    exit 1
+fi
 
-check:
-	@test -n ${DH_COMPONENT} && test -d ${TDIR}
+if [ ! -d ${TDIR} ]
+then
+    echo ${TDIR} not a directory
+    exit 1
+fi
 
-series : ${TDIR}/debian/patches/series
+if [ ! -d ${SDIR}/patches ]
+then
+    # if no patches directory in source exit quietly
+    exit 0;
+fi
 
-${TDIR}/debian/patches/series : ${TDIR}/debian/patches
-	touch ${TDIR}/debian/patches/series
+if mkdir ${TDIR}/debian 
+then
+    if ! ln -s ../../../${SDIR}/patches ${TDIR}/debian/patches
+    then
+        echo "Cannot link ${TDIR}/debian/patches"
+        exit 1
+    fi
+else
+    echo "Cannot make ${TDIR}/debian"
+    exit 1
+fi
 
-${TDIR}/debian/patches : ${TDIR}/debian
-	(! test -d ${SDIR}/patches) || ln -s ../../../${SDIR}/patches ${TDIR}/debian/patches
-	mkdir -p ${TDIR}/debian/patches
+cd ${TDIR}
 
-${TDIR}/debian : ${TDIR}
-	mkdir -p ${TDIR}/debian
+SERIES=`quilt series`
 
-quilt:	series
-	cd ${TDIR} && ((test -z `quilt series') || (quilt push -a)) && cd -
+if [ -z $SERIES ]
+then
+    cd ../..
+    exit 0
+fi
+
+if quilt push -a
+then
+    EXIT_STATUS=0
+else
+    EXIT_STATUS=1
+fi
+
+cd ../..
+exit $EXIT_STATUS
+
 
