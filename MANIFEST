@@ -9,7 +9,6 @@ build_stages/test
 lib/Debian/Debhelper/Dh_components.pm
 lib/Debian/Debhelper/Sequence/components.pm
 MANIFEST			This list of files
-MANIFEST.bak
 MANIFEST.SKIP
 README
 t/00.load.t
