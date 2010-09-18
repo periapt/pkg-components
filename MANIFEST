@@ -16,6 +16,7 @@ t/00.load.t
 t/01.basic.t
 t/02.options.t
 t/data/test1/bargle
+t/data/test1/comp1/xxx
 t/data/test1/comp2/boogie
 t/data/test1/comp2/build
 t/data/test1/comp2/config
