@@ -13,7 +13,7 @@
 14.) Experiment with libwww-search-perl                         16/09/2010
 15.) Create copy rules                                          16/09/2010
 16.) Create patch rules                                         17/09/2010
-17.) Fix package name
+17.) Fix package name                                           18/09/2010
 18.) Create config rules
 19.) Create build rules
 20.) Create test rules

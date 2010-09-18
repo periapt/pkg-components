@@ -1,4 +1,4 @@
-Source: dh-component
+Source: pkg-components
 Section: admin
 Priority: extra
 Maintainer: Nicholas Bamber <nicholas@periapt.co.uk>
@@ -8,7 +8,7 @@ Homepage: http://lists.debian.org/debian-devel/2010/09/msg00208.html
 Vcs-Git: git://github.com:periapt/dh-component.git
 Vcs-Browser: http://github.com/periapt/dh-component
 
-Package: dh-component
+Package: pkg-components
 Architecture: all
 Depends: ${misc:Depends}, ${perl:Depends}
 Description: <insert up to 60 chars description>
