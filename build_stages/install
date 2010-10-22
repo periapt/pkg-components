@@ -4,6 +4,14 @@ PACKAGE=
 TDIR=COMPONENTS/${DH_COMPONENT}
 DESTDIR=debian/
 
+if [ -z ${PACKAGE} ]
+then
+    echo PACKAGE not set
+    exit 1
+fi
+PERL=$(which perl)
+PERL="${PERL} -I../../debian/${PACKAGE}/usr/share/perl5"
+
 if [ -z ${DH_COMPONENT} ]
 then
     echo DH_COMPONENT not set
