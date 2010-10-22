@@ -1,0 +1,38 @@
+#!/bin/sh
+
+TDIR=COMPONENTS/${DH_COMPONENT}
+
+if [ -z ${PACKAGE} ]
+then
+    echo PACKAGE not set
+    exit 1
+fi
+PERL=$(which perl)
+PERL="${PERL} -I../../debian/${PACKAGE}/usr/share/perl5"
+
+if [ -z ${DH_COMPONENT} ]
+then
+    echo DH_COMPONENT not set
+    exit 1
+fi
+
+if [ ! -d ${TDIR} ]
+then
+    echo ${TDIR} not a directory
+    exit 1
+fi
+
+cd ${TDIR}
+
+if dh_auto_configure
+then
+    EXIT_STATUS=0
+else
+    EXIT_STATUS=1
+fi
+
+cd ../../
+
+exit $EXIT_STATUS
+
+

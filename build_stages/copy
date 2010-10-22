@@ -1,9 +1,18 @@
 #!/usr/bin/make -f
 
-main: check COMPONENTS/${DH_COMPONENT}
+main: check COMPONENTS/${DH_COMPONENT}/debian/compat COMPONENTS/${DH_COMPONENT}/debian/control
 
 check:
 	@test -n ${DH_COMPONENT}
+
+COMPONENTS/${DH_COMPONENT}/debian/control : COMPONENTS/${DH_COMPONENT}/debian
+	touch COMPONENTS/${DH_COMPONENT}/debian/control
+
+COMPONENTS/${DH_COMPONENT}/debian/compat : COMPONENTS/${DH_COMPONENT}/debian
+	cp debian/compat COMPONENTS/${DH_COMPONENT}/debian
+
+COMPONENTS/${DH_COMPONENT}/debian : COMPONENTS/${DH_COMPONENT}
+	mkdir -p COMPONENTS/${DH_COMPONENT}/debian
 
 COMPONENTS/${DH_COMPONENT}: COMPONENTS ${DH_COMPONENT}
 	cp -R ${DH_COMPONENT} COMPONENTS

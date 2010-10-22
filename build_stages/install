@@ -1,0 +1,28 @@
+#!/bin/sh
+
+PACKAGE=
+TDIR=COMPONENTS/${DH_COMPONENT}
+DESTDIR=debian/
+
+if [ -z ${DH_COMPONENT} ]
+then
+    echo DH_COMPONENT not set
+    exit 1
+fi
+
+if [ ! -d ${TDIR} ]
+then
+    echo ${TDIR} not a directory
+    exit 1
+fi
+
+if dh_auto_install -D ${TDIR}
+then
+    EXIT_STATUS=0
+else
+    EXIT_STATUS=1
+fi
+
+exit $EXIT_STATUS
+
+
