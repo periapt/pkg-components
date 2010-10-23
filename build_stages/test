@@ -7,8 +7,6 @@ then
     echo PACKAGE not set
     exit 1
 fi
-PERL=$(which perl)
-PERL="${PERL} -I../../debian/${PACKAGE}/usr/share/perl5"
 
 if [ -z ${DH_COMPONENT} ]
 then
@@ -22,7 +20,7 @@ then
     exit 1
 fi
 
-if dh_auto_test -D ${TDIR}
+if dh_auto_test -D ${TDIR} -- -I../../debian/${PACKAGE}/usr/share/perl5
 then
     EXIT_STATUS=0
 else
