@@ -10,6 +10,8 @@ Vcs-Browser: http://github.com/periapt/dh-component
 
 Package: pkg-components
 Architecture: all
-Depends: ${misc:Depends}, ${perl:Depends}
-Description: <insert up to 60 chars description>
- <insert long description, indented with spaces>
+Depends: ${misc:Depends}, ${perl:Depends}, make
+Description: debhelper tool to help maintain bundles
+ Support for additional components in debian/rules
+ To be activated one would need to run 'dh --with components $@' and
+ also there would have to be a 'debian/components' directory.
