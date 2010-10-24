@@ -14,7 +14,7 @@ init(options=>{
 });
 
 # Clean up the old components directory
-rmtree('COMPONENTS', verbose=>1, safe=>1); 
+remove_tree('COMPONENTS', verbose=>1, safe=>1); 
 
 # Work through the packages and components
 foreach my $package (getpackages()) {
