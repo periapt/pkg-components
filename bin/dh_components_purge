@@ -1,0 +1,45 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+use Debian::Debhelper::Dh_Lib;
+use File::Path qw(remove_tree);
+
+init();
+
+# Clean up the old components directory
+remove_tree('COMPONENTS', verbose=>1, safe=>1); 
+
+exit(0);
+
+=head1 NAME
+
+dh_components_purge - purge components working directory
+
+=head1 SYNOPSIS
+
+B<dh_components_purge> [S<I<debhelper options>>]
+
+=head1 DESCRIPTION
+
+C<dh_components_purge> is a debhelper program that removes the components
+working directory.
+
+=head1 CONFIGURATION
+
+To enable this module it is necessary to pass the argument
+C<--with components> to the C<dh> programa in the C<debian/rules>
+file. See L<dh_components> for more details.
+
+=head1 SEE ALSO
+
+L<debhelper(1)>
+
+This program is used with debhelper. 
+
+L<quilt(1)>
+
+=head1 AUTHOR
+
+Nicholas Bamber <nicholas@periapt.co.uk>
+
+=cut

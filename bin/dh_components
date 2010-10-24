@@ -3,7 +3,6 @@ use strict;
 use warnings;
 use Debian::Debhelper::Dh_Lib;
 use Debian::Debhelper::Dh_components;
-use File::Path qw(remove_tree);
 use Readonly;
 Readonly my $COMMA_RE => qr/,/;
 
@@ -12,9 +11,6 @@ init(options=>{
     "build_stages=s" => \$dh{BUILD_STAGES},
     "rules_locations=s" => \$dh{RULES_LOCATIONS},
 });
-
-# Clean up the old components directory
-remove_tree('COMPONENTS', verbose=>1, safe=>1); 
 
 # Work through the packages and components
 foreach my $package (getpackages()) {
@@ -74,8 +70,6 @@ additional components that come from separate upstream sources. It takes the
 following actions:
 
 =over 
-
-=item Remove the C<COMPONENTS> directory.
 
 =item Run through the various build stages for each package and component.
 
