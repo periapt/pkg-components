@@ -1,196 +1,67 @@
+                pkg-components
 
+PURPOSE
 
+To provide a means of managing the build of components in a Debian package.
 
+HISTORY
 
+Typically there is a one-to-one correspondence between perl modules and
+perl debian packages. However the ftp masters generally disallow packages
+where the packaging takes up more diskspace than the code. To get round this
+related modules are sometimes packaged as a bundle. The code that manages
+this is copied from package to package and gets harder to maintain as it
+evolves.
 
+The most significant bit of support provided by the Debian infrastructure
+for packaging bundles is described in
 
+http://raphaelhertzog.com/2010/09/07/how-to-use-multiple-upstream-tarballs-in-debian-source-packages/
 
-===============================================================================
-   [Report as spam] [Date_Prev][Date_Next] [Thread_Prev][Thread_Next] [Date
-Index] [Thread_Index]
-
-****** Thinking about bundles ******
-===============================================================================
-
-    * To: debian-perl@lists.debian.org, debian-devel@lists.debian.org
-    * Subject: Thinking about bundles
-    * From: Nicholas Bamber <nicholas@periapt.co.uk>
-    * Date: Thu, 09 Sep 2010 11:14:27 +0100
-    * Message-id: <4C88B383.8030200@periapt.co.uk>
-
-===============================================================================
-  I have been looking into the packaging of bundles - that is packagesthat have
-multiple upstream sources. There was recently an article onthe subject:http://
-raphaelhertzog.com/2010/09/07/how-to-use-multiple-upstream-tarballs-in-debian-
-source-packages/.
 However one must notice this quote:
-&quot;The supplementary tarball is now part of the source package but
-we&#x2019;renot making anything useful out of it. *We have to modify debian/
-rules*... to install the new files in the binary package.&quot;
-I have recently looked into a number of bundle packages. All of themhave
-different implementations of the debian/rules although the ones Ilooked at had
-clearly once had a common parent. Hence I have been keptawake at night thinking
-how this situation might be improved. Thefollowing proposal draws upon the
-ideas I have picked up from those bundles.All those bundles were perl ones
-though I think I have managed to makethis proposal language neutral.
 
-Proposal: dh_components
-Purpose: Support for additional components in debian/rules
-To be activated one would need to run &quot;dh --with components $@&quot; and
-alsothere would have to be a &quot;debian/components&quot; directory.
+    The supplementary tarball is now part of the source package but
+    we're not making anything useful out of it. We have to modify
+    debian/rules... to install the new files in the binary package.
 
-Directory structure
-============
+So this package aims to take that support to the next level. Certainly
+it aims to do better than the ad hoc code currently in Debian perl packages.
 
-debian/components/ rules
-&quot; / &quot; / copyright.in
-&quot; / &quot; / [component1] / rules
-&quot; / &quot; / &quot; / control
-&quot; / &quot; / &quot; / copyright
-&quot; / &quot; / &quot; /patches
-&quot; / &quot; / &quot; /watch
+Currently it only supports the core functionality of integrating the 
+components into the build process. However there is nothing in the package
+which is perl specific.
 
-For each component there would be directory below the debian/
-componentsdirectory. Files that could be in an individual directory are as
-follows:
+TODO
 
-watch: Just the same as a normal watch file.
-patches: Just the same as a normal quilt patches directory
-copyright: This would not be a full copyright file. It would consistonly of the
-stanzas relevant to the component.control: This would be in the same format as
-the main control file butwould only accept certain fields - namely a long
-description fragmentand various dependencies such a Depends, Recommends,
-Suggests, Conflictsetc. Build dependencies would not be supported as there
-would be no waysuch information could be used.rules: This would be an
-executable description described in more detaillater.
-Of the above file I think only the copyright and control files would
-bemandatory. There would optionally be a rules file at thedebian/components
-directory.
+* Need to provide a template mechanism for piecing together information from
+the components. This will be especially needed for copyright.
+* Need to generate substvars so that dependencies can be rationally managed.
+* Need to provide some integration with uscan.
 
-The '--with' option
-===========
-There would need to be a 'Debian/Debhelper/Sequence/components.pm' thesole
-purpose of which would be to install the 'dh_components' hook justbefore
-'dh_installdocs'.
+INSTRUCTIONS
 
-The 'uscan_components' script
-===================
-This would be a wrapper around uscan. It would iterate through thecomponents
-and run 'uscan --watchfile [file]' specifying the componentswatch file and
-passing on any arguments that make sense. It would makesense to integrate this
-functionality into uscan, but this script wouldbe a work around whilst the
-project is experimental.
+These instructions assume you have installed the 'pkg-components' package.
 
-The 'dh_components' script
-==================
-This would have three jobs:
-* Patching together the copyright file from a template'debian/components/
-copyright.in' and the copyright files in thecomponent directories.* Patching
-together various variable substitutions such as${components:Depends}, $
-{components:Recommends}, ${components:Conflicts}and notably ${components:
-Description} from the component control files.These should be used in the main
-debian/control file.* Running the build process for each component. The build
-process wouldconsist of the following phases:
+1. First prepare your core package as you would normally. So now for 
+version V of your package P you have a P directory and the files:
+P_V.orig.tar.gz; P_V-1.debian.tar.gz; P_V-1.dsc.
 
-1.) *copy* from the component source directory to a build area
-2.) *patch* the source in the build area using the components patchesdirectory.
-This includes a link from [component sourcecopy]/debian/patches to [component
-patches area] so that the quiltconfig which works for the main package should
-also work for the component.
-3.) *configure* the copy in the build area
-4.) *build* the source in the build area
-5.) *test* the source in the build area
-6.) *install* the source from the build area to the package install area
-(usually debian/[package]/...).
-Exactly how this would work would depend on the combination of the rulesfile in
-the &quot;components&quot; directory and the component &quot;rules&quot; files
-ineach individual components directory. This would allow some componentsto be
-handled in a standard package wide manner and others to getspecial treatment -
-- possibly only at one build stage. There would alsobe arguments to instruct
-dh_components to only handle certain componentsand only certain tasks or build
-stages. This would be useful indebugging and managing component patches (see
-below)
+2. Now suppose you have component upstream tarballs C_A_v1.tar.gz and
+C_B_v1.tar.gz. You need to choose names for these components which are purely
+alphanumeric. [The actual rules are not clear but appear to be determined in 
+dpkg-source.] Assume that we name these ca and cb.
 
-The 'rules' file
-=========
-The 'rules' file must be an executable script. The spec is intended tomake it
-easily implementable as a make file though this should not beassumed. It should
-pick up the component being worked on from theDH_COMPONENT environment variable
-and the build stages 1-6 should all betargets. The rules file is not required
-to implement all six targets butit must implement one extra target: 'list'.
-This should print out thelist of targets that it can handle.The rule for each
-build stage must check if the previous stage hascompleted, running that
-uncompleted stage if it knows howand failing if not. On completion it must mark
-that the stage iscompleted with a stamp file in the build area.
+3. Now copy the tarballs to the appropriate name
+    cp C_A_v1.tar.gz P_V.orig-ca.tar.gz
+    cp C_B_v1.tar.gz P_V.orig-cb.tar.gz
 
+4. Create component sub-directories.
+    cd P
+    mkdir ca cb
 
-The build process in detail
-================
-
-For each component [component]
-Check if debian/components/rules exists and is executable
-Check the results of 'DH_COMPONENT=[component] debian/components/rules list'
-Check if debian/components/[component]/rules exists and is executable
-Check the results of 'DH_COMPONENT=[component]debian/components/[component]/
-rules list'
-
-
-For each [stage] in copy patch configure build test install
-If debian/components/[component]/rules can handle [stage]
-DH_COMPONENT=[component] debian/components/[component]/rules [stage]
-Else
-If debian/components/rules can handle [stage]
-DH_COMPONENT=[component] debian/components/rules [stage]
-Else
-abort
-Fi
-Fi
-Done
-
-Model rules scripts
-============
-The package would need to come with a number of model rules scripts --one for
-each of perl, python etc. So at its simplest someone packaging abundle of perl
-modules would only need to copy the model script for perlto 'debian/components/
-rules' (or maybe dh-make-perl would do that?).
-
-
-Working with patches
-==============
-Assuming just one patch
-1.) dh_components -t copy [component]
-2.) cd [component build area]
-3.) quilt push
-4.) edit files
-5.) quilt refresh
-6.) quilt header -e
-7.) quilt pop
-begin:vcard
-fn:Nicholas Bamber
-n:Bamber;Nicholas
-org:Periapt Technologies
-email;internet:nicholas@periapt.co.uk
-x-mozilla-html:FALSE
-url:http://www.periapt.co.uk
-version:2.1
-end:vcard
-
-===============================================================================
-Reply to:
-    * debian-devel@lists.debian.org
-    * Nicholas_Bamber_(on-list)
-    * Nicholas_Bamber_(off-list)
-===============================================================================
-
-    * Prev by Date: Re:_Is_a_bug_RC_relevant_if_it_has_an_influence_on_the
-      health_of_a_person
-    * Next by Date: Re:_Is_a_bug_RC_relevant_if_it_has_an_influence_on_the
-      health_of_a_person
-    * Previous by thread: Re:_Is_a_bug_RC_relevant_if_it_has_an_influence_on
-      the_health_of_a_person
-    * Next by thread: Bug#596229:_ITP:_lazyscripts_--_A_stupid_scripts
-      management_tool_and_non_official_package_installer
-    * Index(es):
-          o Date
-          o Thread
+5. Unpack the component tarballs into those sub-directories.
+    tar -C ca -zxf ../P_V.orig-ca.tar.gz
+    tar -C cb -zxf ../P_V.orig-cb.tar.gz
+That covers the support in dpkg-source as described in the article listed
+above.
 
