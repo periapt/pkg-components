@@ -7,6 +7,7 @@ use Readonly;
 Readonly my $COMMA_RE => qr/,/;
 
 init(options=>{
+    "purge!"=>\$dh{PURGE},
     "components=s" => \$dh{COMPONENTS},
     "build_stages=s" => \$dh{BUILD_STAGES},
     "rules_locations=s" => \$dh{RULES_LOCATIONS},
@@ -39,6 +40,11 @@ foreach my $package (getpackages()) {
             doit($command);
         }
     }
+}
+
+# Clean up the old components directory
+if ($dh{PURGE} or not defined $dh{PURGE}) {
+    doit("rm -rf COMPONENTS");
 }
 
 exit(0);
@@ -78,6 +84,9 @@ file is handled. (Not implemented)
 
 =item Generate the C<substvar> file from the component control files. (Not
 implemented)
+
+=item Purge the components working directory (unless the I<--no-purge> option
+is set).
 
 =back 
 
