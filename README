@@ -29,7 +29,8 @@ it aims to do better than the ad hoc code currently in Debian perl packages.
 
 Currently it only supports the core functionality of integrating the 
 components into the build process. However there is nothing in the package
-which is perl specific.
+which is perl specific, apart from the default build stage scripts which
+can easily be overridden.
 
 TODO
 
@@ -37,6 +38,7 @@ TODO
 the components. This will be especially needed for copyright.
 * Need to generate substvars so that dependencies can be rationally managed.
 * Need to provide some integration with uscan.
+* Probably ought to make the whole thing "build system" aware.
 
 INSTRUCTIONS
 
