@@ -1,13 +1,13 @@
 Source: pkg-components
-Section: admin
+Section: devel
 Priority: optional
 Maintainer: Nicholas Bamber <nicholas@periapt.co.uk>
-Build-Depends-Indep: libtest-pod-coverage-perl, libreadonly-xs-perl, libreadonly-perl, perl, libtest-pod-perl
+Build-Depends-Indep: libtest-pod-coverage-perl, libreadonly-xs-perl, libreadonly-perl
 Build-Depends: debhelper (>= 7)
 Standards-Version: 3.9.1
 Homepage: http://lists.debian.org/debian-devel/2010/09/msg00208.html
-Vcs-Git: git://github.com:periapt/dh-component.git
-Vcs-Browser: http://github.com/periapt/dh-component
+Vcs-Git: git://github.com:periapt/pkg-components.git
+Vcs-Browser: http://github.com/periapt/pkg-components/
 
 Package: pkg-components
 Architecture: all
