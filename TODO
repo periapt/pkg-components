@@ -1,3 +1,14 @@
+Issues
+======
+Raphael's article is misleading. The top-level directory in the
+supplementary tarball must be the same as component name.
+In consequence the copy build stage hould not assume two levels.
+The supplementary tarball format should be documented - it is
+too deeply buried in the dpkg-source manpage and even that is not
+specific enough.
+Is a patch build stage really necessary?
+Also for svn-buildpackage need to document tarballs directory etc
+
 1.) cut dummy dh_components command                             12/09/2010
 2.) sequence installation in debhelper                          12/09/2010
 3.) create perl module as core of dh_components                 12/09/2010

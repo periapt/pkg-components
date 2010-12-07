@@ -11,7 +11,7 @@ Vcs-Browser: http://github.com/periapt/pkg-components/
 
 Package: pkg-components
 Architecture: all
-Depends: ${misc:Depends}, ${perl:Depends}, make, libreadonly-xs-perl, libreadonly-perl
+Depends: ${misc:Depends}, ${perl:Depends}, make, libreadonly-xs-perl, libreadonly-perl, dpkg-dev (>= 1.14.27)
 Description: debhelper tool to help maintain bundles
  Support for additional components in debian/rules
  To be activated one would need to run 'dh --with components $@' and
