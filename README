@@ -39,6 +39,8 @@ the components. This will be especially needed for copyright.
 * Need to generate substvars so that dependencies can be rationally managed.
 * Need to provide some integration with uscan.
 * Probably ought to make the whole thing "build system" aware.
+* Need better support for other bits and pieces like component changelogs.
+* Eventually could do with interest from other languages .
 
 INSTRUCTIONS
 
@@ -50,8 +52,11 @@ P_V.orig.tar.gz; P_V-1.debian.tar.gz; P_V-1.dsc.
 
 2. Now suppose you have component upstream tarballs C_A_v1.tar.gz and
 C_B_v1.tar.gz. You need to choose names for these components which are purely
-alphanumeric. [The actual rules are not clear but appear to be determined in 
-dpkg-source.] Assume that we name these ca and cb.
+alphanumeric . Actually the component names can also contain the hyphen "-".
+Assume that we name these ca and cb. Important the component name
+must also be the top-level directory within the corresponding sub-tarball.
+Often this will mean that sub-tarballs must be rebuilt. All these rules
+come from with the dpkg-source executable.
 
 3. Now copy the tarballs to the appropriate name
     cp C_A_v1.tar.gz P_V.orig-ca.tar.gz
@@ -86,3 +91,17 @@ build stages for the entire package by having an appropriately named script
 in the debian/components directory. You can vary a build stage for a specifc
 component by putting the relevant script in that components directory below
 debian/components.
+
+DEPRECATED
+
+It seems that the patch build stage is probably unncessary because of
+how dpkg-source handles patches. Please consider the patch build stage
+deprecated and do not use it. If this turns out not to be true please 
+raise a bug report.
+
+ISSUES
+
+It seems to be relatively easy for a dummy patch to infect the build.
+It would be nice to understand the issue in sufficient detail to be able
+to defend against it. In the meantime downloading fresh correct source from the
+repository and using fresh tar balls seems to resolve this issue.

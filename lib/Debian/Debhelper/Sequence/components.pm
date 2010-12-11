@@ -3,6 +3,6 @@ use warnings;
 use strict;
 use Debian::Debhelper::Dh_Lib;
 
-insert_before("dh_installdocs", "dh_components");
+insert_after("dh_install", "dh_components");
 
 1;
