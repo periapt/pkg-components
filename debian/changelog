@@ -2,8 +2,16 @@ pkg-components (0.2) UNRELEASED; urgency=low
 
   * Changed section to 'devel' in accordance with override
   * Fixed repository data in control file
-  * Add versioned dependency on dpkg-dev so we have support for the
+  * Add versioned dependency on dpkg-dev to ensure we have support for the
     3.0 (quilt) format
+  * Fixed number of directory levels in copy build stage now that the
+    format expected by dpkg-source is better understood.
+  * Added check for Changes file in componnet, which if found will
+    be installed into doc directory
+  * Setting PERL5LIB environment variable in config so that 
+    testing components can work correctly
+  * Shifted sequence so that dh_components runs immediately after the core
+    install, so that components can be tested.
 
  -- Nicholas Bamber <nicholas@periapt.co.uk>  Tue, 30 Nov 2010 21:32:10 +0000
 

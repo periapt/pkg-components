@@ -1,6 +1,7 @@
 #!/bin/sh
 
 TDIR=COMPONENTS/${DH_COMPONENT}
+PERL5LIB="$DESTDIR/usr/share/perl5/"
 
 if [ -z ${PACKAGE} ]
 then
@@ -8,7 +9,6 @@ then
     exit 1
 fi
 PERL=$(which perl)
-PERL="${PERL} -I../../debian/${PACKAGE}/usr/share/perl5"
 
 if [ -z ${DH_COMPONENT} ]
 then
@@ -24,7 +24,7 @@ fi
 
 cd ${TDIR}
 
-if dh_auto_configure
+if dh_auto_configure -D ${TDIR}
 then
     EXIT_STATUS=0
 else

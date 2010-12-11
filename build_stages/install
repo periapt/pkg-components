@@ -30,6 +30,16 @@ else
     EXIT_STATUS=1
 fi
 
+if [ -e ${DH_COMPONENT}/Changes ]
+then
+  if dh_install ${TDIR}/Changes usr/share/doc/${PACKAGE}/${DH_COMPONENT}
+  then
+      EXIT_STATUS=0
+  else
+      EXIT_STATUS=1
+  fi
+fi
+
 exit $EXIT_STATUS
 
 
