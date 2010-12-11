@@ -4,7 +4,10 @@ use warnings;
 use Debian::Debhelper::Dh_Lib;
 use Debian::Debhelper::Dh_components;
 use Readonly;
+use Cwd;
 Readonly my $COMMA_RE => qr/,/;
+
+Readonly my $CWD => getcwd;
 
 init(options=>{
     "purge!"=>\$dh{PURGE},
@@ -36,7 +39,7 @@ foreach my $package (getpackages()) {
 
         foreach my $bs ($component_data->build_stages) {
             my $script = $component_data->script($c, $bs);
-            my $command = "PACKAGE=$package DH_COMPONENT=$c $script";
+            my $command = "CURDIR=$CWD PACKAGE=$package DH_COMPONENT=$c $script";
             doit($command);
         }
     }
