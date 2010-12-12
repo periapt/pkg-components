@@ -147,7 +147,7 @@ explicitly specify the default one would set:
 
 =head1 CONFIGURATION
 
-To enable this module it is necessary to pass the argument
+To enable this functionality it is necessary to pass the argument
 C<--with components> to the C<dh> programa in the C<debian/rules>
 file.
 

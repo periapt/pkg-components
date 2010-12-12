@@ -1,4 +1,4 @@
-pkg-components (0.2) UNRELEASED; urgency=low
+pkg-components (0.2) unstable; urgency=low
 
   * Changed section to 'devel' in accordance with override
   * Fixed repository data in control file
@@ -16,7 +16,7 @@ pkg-components (0.2) UNRELEASED; urgency=low
   * Setting CURDIR when calling build stage scripts
   * Setting PERL5LIB inside the config build stage based upon CURDIR
 
- -- Nicholas Bamber <nicholas@periapt.co.uk>  Tue, 30 Nov 2010 21:32:10 +0000
+ -- Nicholas Bamber <nicholas@periapt.co.uk>  Sun, 12 Dec 2010 11:12:11 +0000
 
 pkg-components (0.1) unstable; urgency=low
 

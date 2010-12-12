@@ -105,3 +105,6 @@ It seems to be relatively easy for a dummy patch to infect the build.
 It would be nice to understand the issue in sufficient detail to be able
 to defend against it. In the meantime downloading fresh correct source from the
 repository and using fresh tar balls seems to resolve this issue.
+
+The build stage scripts are currently in a state of hacky flux. There is a need
+to rewrite them from scratch and to think about how to generalize them.
