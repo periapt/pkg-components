@@ -20,6 +20,6 @@ pkg-components (0.2) unstable; urgency=low
 
 pkg-components (0.1) unstable; urgency=low
 
-  * Initial release
+  * Initial release (Closes: #601498)
 
  -- Nicholas Bamber <nicholas@periapt.co.uk>  Sat, 11 Sep 2010 22:29:27 +0100

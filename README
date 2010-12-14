@@ -53,12 +53,12 @@ P_V.orig.tar.gz; P_V-1.debian.tar.gz; P_V-1.dsc.
 2. Now suppose you have component upstream tarballs C_A_v1.tar.gz and
 C_B_v1.tar.gz. You need to choose names for these components which are purely
 alphanumeric . Actually the component names can also contain the hyphen "-".
-Assume that we name these ca and cb. Important the component name
-must also be the top-level directory within the corresponding sub-tarball.
-Often this will mean that sub-tarballs must be rebuilt. All these rules
-come from with the dpkg-source executable.
+Assume that we name these ca and cb. The directory inside the source
+directory corresponding to the component must be this component name
+and the sub tar ball must also be renamed according to this name.
+All these rules come from with the dpkg-source executable.
 
-3. Now copy the tarballs to the appropriate name
+3. Copy the tarballs to the appropriate name
     cp C_A_v1.tar.gz P_V.orig-ca.tar.gz
     cp C_B_v1.tar.gz P_V.orig-cb.tar.gz
 
