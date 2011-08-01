@@ -62,15 +62,14 @@ All these rules come from with the dpkg-source executable.
     cp C_A_v1.tar.gz P_V.orig-ca.tar.gz
     cp C_B_v1.tar.gz P_V.orig-cb.tar.gz
 
-4. Create component sub-directories.
+4. Unpack the component tarballs into those sub-directories.
     cd P
-    mkdir ca cb
+    tar -zxf ../P_V.orig-ca.tar.gz
+    tar -zxf ../P_V.orig-cb.tar.gz
 
-5. Unpack the component tarballs into those sub-directories.
-    tar -C ca -zxf ../P_V.orig-ca.tar.gz
-    tar -C cb -zxf ../P_V.orig-cb.tar.gz
-That covers the support in dpkg-source as described in the article listed
-above.
+4. Create component sub-directories.
+    mv C_A-v1 ca
+    mv C_B-v1 cb
 
 6. Make a components sub-directory and one for each component.
     mkdir debian/components
@@ -79,6 +78,12 @@ above.
 
 7. In your debian/rules file add the '--with components' argument
 to the 'dh' command.
+
+8. To build the copyright file from appropriate components
+but the copyright file for the main module in debian/components/copyright.
+In each debian/components/[C]/copyright put the copyright file
+for that component but minus the header stanza. Also the license stanzas
+can be ommitted if they are present else where.
 
 8. If you are lucky this is all you will need to do. What dpkg-buildpackage
 will do with what you have done is for each component and each build stage

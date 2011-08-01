@@ -43,6 +43,9 @@ foreach my $package (getpackages()) {
             doit($command);
         }
     }
+
+    foreach my $f ($component_data->templated_files) {
+    }
 }
 
 # Clean up the old components directory
@@ -82,8 +85,8 @@ following actions:
 
 =item Run through the various build stages for each package and component.
 
-=item Stitch together the template files. This is typically how the copyright
-file is handled. (Not implemented)
+=item Stitch together the templated files. This is typically how the copyright
+file is handled.
 
 =item Generate the C<substvar> file from the component control files. (Not
 implemented)
@@ -105,20 +108,24 @@ These directories contain all the component data for a given binary package.
 The second form only works for the first binary in a source package and is
 overridden by the equivalent first form.
 
-=item debian/components/I<component>
+=item debian/[I<package>.]components/I<component>
 
 This is a directory that contains the files specific to that component.
 In some ways it is like a cut-down version of the debian directory.
 
-=item debian/components/I<component>
+=item debian/[I<package>.]components/I<component>
 
-=item debian/components/
+=item debian/[I<package>.]components/
 
 =item /usr/share/pkg-components/build_stages
 
 These are the default locations of the build stage scripts in the order of 
 precedence with highest first. These can be overridden using the
 C<--rules_locations>.
+
+=item debian/[I<package>.]components/I<file>.tmpl
+
+This file provides a template for the file debian/I<file>.
 
 =back
 

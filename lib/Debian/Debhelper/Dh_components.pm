@@ -91,6 +91,10 @@ sub script {
     return undef;
 }
 
+#sub templated_files {
+#    return;
+#}
+
 # Module implementation here
 
 
