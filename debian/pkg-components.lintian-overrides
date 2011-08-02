@@ -1,0 +1,2 @@
+# This module parses License stanzas and is  not itself a LICENSE file
+pkg-components: extra-license-file usr/share/man/man3/Debian::Copyright::Stanza::License.3pm.gz
