@@ -44,7 +44,7 @@ use strict;
 use base qw(Debian::Copyright::Stanza);
 
 use constant fields => qw (
-    Format_Specification Name X_Comment Maintainer Source
+    Format_Specification Maintainer Source Name X_Comment
 );
 
 =head1 CONSTRUCTOR

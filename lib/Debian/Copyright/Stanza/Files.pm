@@ -42,7 +42,7 @@ use strict;
 use base qw(Debian::Copyright::Stanza);
 
 use constant fields => qw (
-    X_Comment Files Copyright License
+    Files Copyright License X_Comment
 );
 
 =head1 CONSTRUCTOR

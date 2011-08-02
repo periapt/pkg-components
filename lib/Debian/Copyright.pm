@@ -102,7 +102,7 @@ sub read {
         { useTieIxHash => 1, verbMultiLine => 1 } );
 
     for (@$stanzas) {
-        if ( $_->{Format} and ! $self->header) {
+        if ( $_->{'Format-Specification'} and ! $self->header) {
             $self->header( Debian::Copyright::Stanza::Header->new($_) );
         }
         elsif ( $_->{Files} ) {
@@ -117,6 +117,7 @@ sub read {
             die "Got copyright stanza with unrecognised field\n";
         }
     }
+    return;
 }
 
 =head2 write I<file>
