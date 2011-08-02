@@ -85,12 +85,17 @@ In each debian/components/[C]/copyright put the copyright file
 for that component but minus the header stanza. Also the license stanzas
 can be ommitted if they are present else where.
 
-8. If you are lucky this is all you will need to do. What dpkg-buildpackage
+9. Make sure your build dependencies require at least pkg-components (>= 0.3).
+
+10. You probably want to list the components and their versions in the long
+description.
+
+11. If you are lucky this is all you will need to do. What dpkg-buildpackage
 will do with what you have done is for each component and each build stage
 (one of: copy, patch, config, build, test, install) run the appropriate
 little script.
 
-9. The default build stage scripts are located in
+12. The default build stage scripts are located in
 /usr/share/pkg-components/build_stages. You can vary one or more
 build stages for the entire package by having an appropriately named script 
 in the debian/components directory. You can vary a build stage for a specifc

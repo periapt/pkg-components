@@ -6,7 +6,7 @@ Build-Depends-Indep: libtest-pod-coverage-perl, libreadonly-xs-perl,
  libreadonly-perl, libclass-accessor-perl, libtie-ixhash-perl,
  libparse-debcontrol-perl
 Build-Depends: debhelper (>= 7)
-Standards-Version: 3.9.1
+Standards-Version: 3.9.2
 Homepage: http://lists.debian.org/debian-devel/2010/09/msg00208.html
 Vcs-Git: git://github.com:periapt/pkg-components.git
 Vcs-Browser: http://github.com/periapt/pkg-components/

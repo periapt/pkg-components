@@ -1,14 +1,18 @@
 pkg-components (0.3) UNRELEASED; urgency=low
 
-  TODO: Update README
-  - unpacking component files does not work as directed
-  - Also should mention build-dependency on >= 0.2
-  - Mention control long description and copyright
-  - Update dependencies
+  TODO:
+  - Self test for copy right
+  - Test copyright merging
+  - Write code to test actual copyright merging
+  - Try copyright merging for real
+  - Look at substvars
+  - Look at wrapper for uscan
 
   * Added support for copyright merging
   * Updated README
   * Updated debian/copyright
+  * Raised standards version to 3.9.2
+  * Added lintian override for License.pm
 
  -- Nicholas Bamber <nicholas@periapt.co.uk>  Sun, 15 May 2011 19:32:11 +0100
 
