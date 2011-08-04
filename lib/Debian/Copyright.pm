@@ -42,6 +42,7 @@ package Debian::Copyright;
 
 use base 'Class::Accessor';
 use strict;
+use Carp;
 
 __PACKAGE__->mk_accessors(qw( _parser header files licenses ));
 
@@ -110,8 +111,15 @@ sub read {
                 $_->{Files} => Debian::Copyright::Stanza::Files->new($_) );
         }
         elsif ( $_->{License} ) {
+            my $license = $_->{License};
+            if ($license =~ m{\A([\w\.\-\+]+)\s}xms) {
+                $license = $1;
+            }
+            else {
+                croak "License stanza does not make sense";
+            }
             $self->licenses->Push(
-                $_->{License} => Debian::Copyright::Stanza::License->new($_) );
+                $license => Debian::Copyright::Stanza::License->new($_) );
         }
         else {
             die "Got copyright stanza with unrecognised field\n";
