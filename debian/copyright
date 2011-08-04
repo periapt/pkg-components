@@ -10,7 +10,7 @@ License: Artistic or GPL-2+
 Files: lib/Debian/Copyright*
 Copyright:
  2011, Nicholas Bamber <nicholas@periapt.co.uk>
- 2009, Damyan Ivanov L<dmn@debian.org> [Portions]
+ 2009, Damyan Ivanov <dmn@debian.org> [Portions]
 License: GPL-2+
 
 License: Artistic
