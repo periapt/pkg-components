@@ -103,8 +103,10 @@ sub read {
         { useTieIxHash => 1, verbMultiLine => 1 } );
 
     for (@$stanzas) {
-        if ( $_->{'Format-Specification'} and ! $self->header) {
-            $self->header( Debian::Copyright::Stanza::Header->new($_) );
+        if ( $_->{'Format-Specification'}) {
+            if (! $self->header) {
+                $self->header( Debian::Copyright::Stanza::Header->new($_) );
+            }
         }
         elsif ( $_->{Files} ) {
             $self->files->Push(

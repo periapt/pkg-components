@@ -4,11 +4,12 @@ Source: http://github.com/periapt/pkg-components
 Name: pkg-components
 
 Files: *
-Copyright: 2010-2011, Nicholas Bamber <nicholas@periapt.co.uk>
+Copyright: 
+ 2010-2011, Nicholas Bamber <nicholas@periapt.co.uk>
 License: Artistic or GPL-2+
 
 Files: lib/Debian/Copyright*
-Copyright:
+Copyright: 
  2011, Nicholas Bamber <nicholas@periapt.co.uk>
  2009, Damyan Ivanov <dmn@debian.org> [Portions]
 License: GPL-2+

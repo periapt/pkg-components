@@ -1,9 +1,6 @@
 pkg-components (0.3) UNRELEASED; urgency=low
 
   TODO:
-  - License fields of Files stanzas need or-splitting
-  - Self test for copyright
-  - Test copyright merging
   - Write code to test actual copyright merging
   - Try copyright merging for real
   - Look at substvars
