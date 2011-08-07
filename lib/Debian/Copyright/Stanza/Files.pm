@@ -47,16 +47,24 @@ use constant fields => qw (
 
 =head1 CONSTRUCTOR
 
-=over
-
-=item new
-
-=item new( { field => value, ... } )
+=head2 new( { field => value, ... } )
 
 Creates a new L<Debian::Copyright::Stanza::Files> object and optionally
 initializes it with the supplied data.
 
-=back
+=head1 METHODS
+
+=head2 is_or_separated($field)
+
+Returns true for the C<License> field.
+
+=cut
+
+sub is_or_separated {
+    my( $self, $field ) = @_;
+    return $field eq 'License';
+}
+
 
 =head1 SEE ALSO
 

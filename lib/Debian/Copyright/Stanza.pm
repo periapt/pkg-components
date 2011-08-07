@@ -33,6 +33,7 @@ use strict;
 use base qw( Class::Accessor Tie::IxHash );
 
 use Carp qw(croak);
+use Debian::Copyright::Stanza::OrSeparated;
 
 =head1 FIELDS
 
@@ -84,13 +85,30 @@ sub new {
         $k =~ s/-/_/g;
         $self->can($k)
             or croak "Invalid field given ($k)";
-        $self->$k($v);
+        if ( $self->is_or_separated($k) ) {
+            $self->$k( Debian::Copyright::Stanza::OrSeparated->new( $v ) );
+        }
+        else {
+            $self->$k($v);
+        }
     }
 
     return $self;
 }
 
 =head1 METHODS
+
+=head2 is_or_separated($field)
+
+Returns true if the given field is to contain a 'or'-separated list of values.
+This is used in stringification, when considering where to wrap long lines.
+
+=cut
+
+sub is_or_separated {
+    my( $self, $field ) = @_;
+    return 0;
+}
 
 =head2 get($field)
 
