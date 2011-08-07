@@ -21,7 +21,7 @@ Readonly my $RULES_LOCATIONS => [
     '/usr/share/pkg-components/build_stages',
 ];
 
-our $VERSION = '0.1';
+our $VERSION = '0.3';
 
 sub new {
     my $class = shift;
