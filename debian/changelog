@@ -1,10 +1,8 @@
 pkg-components (0.3) UNRELEASED; urgency=low
 
   TODO:
-  - Write code to test actual copyright merging
   - Get coverage upto 100% - split out
   - Try copyright merging for real
-  - Need to have a copyright clean
   - Look at substvars
   - Look at wrapper for uscan
 

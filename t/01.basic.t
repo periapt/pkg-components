@@ -1,6 +1,8 @@
-use Test::More tests => 23;
+use Test::More tests => 24;
 use Debian::Debhelper::Dh_components;
 use Readonly;
+use Perl6::Slurp;
+use Test::LongString;
 
 Readonly my $COPYRIGHT_OUT => 't/data/copyright/out1';
 
@@ -39,4 +41,8 @@ foreach my $bs ($components->build_stages) {
 }
 
 $components->build_copyright($COPYRIGHT_OUT);
+my $expected = slurp 't/data/copyright/expected1';
+my $out = slurp $COPYRIGHT_OUT;
+is_string($data, $contents, "file contents");
+
 unlink $COPYRIGHT_OUT;

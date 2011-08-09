@@ -58,7 +58,7 @@ sub new {
 
             my $copyright_frag = "$self->{dir}/$file/copyright";
             if ($self->{copyright} && -r $copyright_frag) {
-                $self->{copyright}->add($copyright_frag);
+                $self->{copyright}->read($copyright_frag);
             }         
         }
     }
