@@ -5,6 +5,7 @@ use strict;
 use Carp;
 use Readonly;
 use DirHandle;
+use Debian::Copyright;
 
 Readonly my $BUILD_STAGES => [
     'copy',
@@ -42,11 +43,23 @@ sub new {
 
     my $dir_handle = DirHandle->new($self->{dir});
     if ($dir_handle) {
+
+        my $copyright_file = "$self->{dir}/copyright.in";
+        if (-r $copyright_file) {
+            $self->{copyright} = Debian::Copyright->new();
+            $self->{copyright}->read($copyright_file);
+        }
+
         while(my $file = $dir_handle->read) {
             next if $file =~ /^\./;
             next if not -d "$self->{dir}/$file";
             next if $components_specified and not exists $components{$file};
             push @{$self->{components}}, $file;
+
+            my $copyright_frag = "$self->{dir}/$file/copyright";
+            if ($self->{copyright} && -r $copyright_frag) {
+                $self->{copyright}->add($copyright_frag);
+            }         
         }
     }
 
@@ -91,9 +104,14 @@ sub script {
     return undef;
 }
 
-#sub templated_files {
-#    return;
-#}
+sub build_copyright {
+    my $self = shift;
+    my $file = shift;
+    if ($self->{copyright}) {
+        $self->{copyright}->write($file);
+    }
+    return;
+}
 
 # Module implementation here
 
@@ -185,6 +203,12 @@ This returns an array listing the components found in that component directory.
 
 This method takes two arguments, the component and the build stage, and returns
 the script that needs to be run.
+
+=head2 build_copyright
+
+If this method finds a file C<copyright.in> in the components directory, it
+merges in any component copyright files in the component directories and
+writes the result to the specified location.
 
 =head1 CONFIGURATION AND ENVIRONMENT
 

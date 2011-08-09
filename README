@@ -34,8 +34,6 @@ can easily be overridden.
 
 TODO
 
-* Need to provide a template mechanism for piecing together information from
-the components. This will be especially needed for copyright.
 * Need to generate substvars so that dependencies can be rationally managed.
 * Need to provide some integration with uscan.
 * Probably ought to make the whole thing "build system" aware.
@@ -83,7 +81,8 @@ to the 'dh' command.
 but the copyright file for the main module in debian/components/copyright.
 In each debian/components/[C]/copyright put the copyright file
 for that component but minus the header stanza. Also the license stanzas
-can be ommitted if they are present else where.
+can be ommitted if they are present else where. The generated copyright
+files must be added to the debian/clean file.
 
 9. Make sure your build dependencies require at least pkg-components (>= 0.3).
 

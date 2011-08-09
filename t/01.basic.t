@@ -1,5 +1,8 @@
 use Test::More tests => 23;
 use Debian::Debhelper::Dh_components;
+use Readonly;
+
+Readonly my $COPYRIGHT_OUT => 't/data/copyright/out1';
 
 my $components = Debian::Debhelper::Dh_components->new(
     dir=>'t/data/test1',
@@ -35,4 +38,5 @@ foreach my $bs ($components->build_stages) {
             : "build_stages/$bs", $bs);
 }
 
-
+$components->build_copyright($COPYRIGHT_OUT);
+unlink $COPYRIGHT_OUT;
