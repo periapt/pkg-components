@@ -114,7 +114,7 @@ sub read {
         }
         elsif ( $_->{License} ) {
             my $license = $_->{License};
-            if ($license =~ m{\A([\w\.\-\+]+)\s}xms) {
+            if ($license =~ m{\A([^\n]+)$}xms) {
                 $license = $1;
             }
             else {

@@ -44,7 +44,7 @@ foreach my $package (getpackages()) {
         }
     }
 
-    $component_data->build_copyright("$CWD/debian/copyright.$package");
+    $component_data->build_copyright("$CWD/debian/$package.copyright");
 }
 
 # Clean up the old components directory

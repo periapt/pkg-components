@@ -43,6 +43,6 @@ foreach my $bs ($components->build_stages) {
 $components->build_copyright($COPYRIGHT_OUT);
 my $expected = slurp 't/data/copyright/expected1';
 my $out = slurp $COPYRIGHT_OUT;
-is_string($data, $contents, "file contents");
+is_string($out, $expected, "file contents");
 
 unlink $COPYRIGHT_OUT;
