@@ -84,8 +84,7 @@ following actions:
 
 =item Run through the various build stages for each package and component.
 
-=item Stitch together the templated files. This is typically how the copyright
-file is handled.
+=item Optionally stitch together the Debian copyright files.
 
 =item Generate the C<substvar> file from the component control files. (Not
 implemented)
@@ -122,9 +121,17 @@ These are the default locations of the build stage scripts in the order of
 precedence with highest first. These can be overridden using the
 C<--rules_locations>.
 
-=item debian/[I<package>.]components/I<file>.tmpl
+=item debian/[I<package>.]components/copyright.in
 
-This file provides a template for the file debian/I<file>.
+This file provides the DEP-5 copyright stanzas for the package but without
+any of the component stanzas. It forms the basis for the I<package>.copyright
+file.
+
+=item debian/[I<package>.]components/I<component>/copyright
+
+This file provides a DEP-5 fragment of the Debian copyright for this component.
+It will be merged into the main copyright file at I<package>.copyright. Any
+duplicate C<License> clauses will be shown only once.
 
 =back
 

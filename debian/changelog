@@ -2,7 +2,6 @@ pkg-components (0.3) UNRELEASED; urgency=low
 
   TODO:
   - Get coverage upto 100% - split out
-  - Try copyright merging for real
   - Look at substvars
   - Look at wrapper for uscan
 
