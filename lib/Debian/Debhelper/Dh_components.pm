@@ -140,18 +140,27 @@ sub _read_substvars {
     $control->read($filename);
     my ($binary) = $control->binary->Values(0);
     foreach my $type (@DEPENDENCY_TYPES) {
+        my $filetype = $type;
+        $filetype =~ s{_}{-}gxms;
         my @dependencies = @{$binary->$type};
         foreach my $dep (@dependencies) {
+            my $dep1 = $dep;
+            if ($dep->alternatives) {
+                my @alternatives = @{$dep->alternatives};
+                croak "cannot pick dependency from $dep"
+                    if scalar @alternatives < 1;
+                $dep1 = $alternatives[0];
+            }
             my %data = (
                 component => $component,
-                substvar => $type,
-                deppackage => $dep->pkg,
+                substvar => $filetype,
+                deppackage => $dep1->pkg,
                 rel => undef,
                 ver => undef,
             );
-            if ($dep->rel) {
-                $data{rel} = $dep->rel;
-                $data{ver} = $dep->ver->as_string;
+            if ($dep1->rel) {
+                $data{rel} = $dep1->rel;
+                $data{ver} = $dep1->ver->as_string;
             }
             push @{$self->{substvars}}, \%data;
         }

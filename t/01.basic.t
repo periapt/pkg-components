@@ -53,12 +53,12 @@ cmp_deeply($components->substvars(),
         {deppackage=>'dep2',component=>'comp1',substvar=>'Depends',rel=>'>=',ver=>'0.67'},
         {deppackage=>'rec1',component=>'comp1',substvar=>'Recommends',rel=>undef,ver=>undef},
         {deppackage=>'rec2',component=>'comp1',substvar=>'Recommends',rel=>'=',ver=>'0.650'},
-        {deppackage=>'dep1',component=>'comp1',substvar=>'Depends',rel=>undef,ver=>undef},
-        {deppackage=>'dep1',component=>'comp1',substvar=>'Depends',rel=>undef,ver=>undef},
-        {deppackage=>'dep1',component=>'comp1',substvar=>'Depends',rel=>undef,ver=>undef},
-        {deppackage=>'dep1',component=>'comp1',substvar=>'Depends',rel=>undef,ver=>undef},
-        {deppackage=>'dep1',component=>'comp1',substvar=>'Depends',rel=>undef,ver=>undef},
-        {deppackage=>'dep1',component=>'comp1',substvar=>'Depends',rel=>undef,ver=>undef},
+        {deppackage=>'sug1',component=>'comp1',substvar=>'Suggests',rel=>'<=',ver=>'0.8'},
+        {deppackage=>'enh1',component=>'comp1',substvar=>'Enhances',rel=>undef,ver=>undef},
+        {deppackage=>'repl1',component=>'comp1',substvar=>'Replaces',rel=>undef,ver=>undef},
+        {deppackage=>'pre1',component=>'comp1',substvar=>'Pre-Depends',rel=>undef,ver=>undef},
+        {deppackage=>'confl1',component=>'comp1',substvar=>'Conflicts',rel=>undef,ver=>undef},
+        {deppackage=>'break1',component=>'comp1',substvar=>'Breaks',rel=>undef,ver=>undef},
     ], 'substvars');
 
 unlink $COPYRIGHT_OUT;
