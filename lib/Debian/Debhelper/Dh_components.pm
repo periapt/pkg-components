@@ -6,6 +6,7 @@ use Carp;
 use Readonly;
 use DirHandle;
 use Debian::Copyright;
+use Debian::Control;
 
 Readonly my $BUILD_STAGES => [
     'copy',
@@ -21,6 +22,17 @@ Readonly my $RULES_LOCATIONS => [
     'debian/components',
     '/usr/share/pkg-components/build_stages',
 ];
+
+Readonly my @DEPENDENCY_TYPES => (
+    'Depends',
+    'Recommends',
+    'Suggests',
+    'Enhances',
+    'Replaces',
+    'Pre_Depends',
+    'Conflicts',
+    'Breaks',
+);
 
 our $VERSION = '0.3';
 
@@ -50,6 +62,8 @@ sub new {
             $self->{copyright}->read($copyright_file);
         }
 
+        $self->{substvars} = [];
+
         while(my $file = $dir_handle->read) {
             next if $file =~ /^\./;
             next if not -d "$self->{dir}/$file";
@@ -59,6 +73,11 @@ sub new {
             my $copyright_frag = "$self->{dir}/$file/copyright";
             if ($self->{copyright} && -r $copyright_frag) {
                 $self->{copyright}->read($copyright_frag);
+            }         
+
+            my $substvars_frag = "$self->{dir}/$file/control";
+            if ($self->{substvars} && -r $substvars_frag) {
+                $self->_read_substvars($substvars_frag, $file);
             }         
         }
     }
@@ -111,6 +130,38 @@ sub build_copyright {
         $self->{copyright}->write($file);
     }
     return;
+}
+
+sub _read_substvars {
+    my $self = shift;
+    my $filename = shift;
+    my $component = shift;
+    my $control = Debian::Control->new;
+    $control->read($filename);
+    my ($binary) = $control->binary->Values(0);
+    foreach my $type (@DEPENDENCY_TYPES) {
+        my @dependencies = @{$binary->$type};
+        foreach my $dep (@dependencies) {
+            my %data = (
+                component => $component,
+                substvar => $type,
+                deppackage => $dep->pkg,
+                rel => undef,
+                ver => undef,
+            );
+            if ($dep->rel) {
+                $data{rel} = $dep->rel;
+                $data{ver} = $dep->ver->as_string;
+            }
+            push @{$self->{substvars}}, \%data;
+        }
+    }
+    return;
+}
+
+sub substvars {
+    my $self = shift;
+    return $self->{substvars};
 }
 
 # Module implementation here
@@ -209,6 +260,11 @@ the script that needs to be run.
 If this method finds a file C<copyright.in> in the components directory, it
 merges in any component copyright files in the component directories and
 writes the result to the specified location.
+
+=head2 substvars
+
+This method returns the appropriate C<substvar> variables parsed from
+C<control> files in each component sub-directory.
 
 =head1 CONFIGURATION AND ENVIRONMENT
 

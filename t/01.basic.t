@@ -1,8 +1,10 @@
-use Test::More tests => 24;
+use Test::More tests => 26;
 use Debian::Debhelper::Dh_components;
 use Readonly;
 use Perl6::Slurp;
 use Test::LongString;
+use Test::NoWarnings;
+use Test::Deep;
 
 Readonly my $COPYRIGHT_OUT => 't/data/copyright/out1';
 
@@ -44,5 +46,19 @@ $components->build_copyright($COPYRIGHT_OUT);
 my $expected = slurp 't/data/copyright/expected1';
 my $out = slurp $COPYRIGHT_OUT;
 is_string($out, $expected, "file contents");
+
+cmp_deeply($components->substvars(),
+    [
+        {deppackage=>'dep1',component=>'comp1',substvar=>'Depends',rel=>undef,ver=>undef},
+        {deppackage=>'dep2',component=>'comp1',substvar=>'Depends',rel=>'>=',ver=>'0.67'},
+        {deppackage=>'rec1',component=>'comp1',substvar=>'Recommends',rel=>undef,ver=>undef},
+        {deppackage=>'rec2',component=>'comp1',substvar=>'Recommends',rel=>'=',ver=>'0.650'},
+        {deppackage=>'dep1',component=>'comp1',substvar=>'Depends',rel=>undef,ver=>undef},
+        {deppackage=>'dep1',component=>'comp1',substvar=>'Depends',rel=>undef,ver=>undef},
+        {deppackage=>'dep1',component=>'comp1',substvar=>'Depends',rel=>undef,ver=>undef},
+        {deppackage=>'dep1',component=>'comp1',substvar=>'Depends',rel=>undef,ver=>undef},
+        {deppackage=>'dep1',component=>'comp1',substvar=>'Depends',rel=>undef,ver=>undef},
+        {deppackage=>'dep1',component=>'comp1',substvar=>'Depends',rel=>undef,ver=>undef},
+    ], 'substvars');
 
 unlink $COPYRIGHT_OUT;

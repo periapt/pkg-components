@@ -4,7 +4,8 @@ Priority: optional
 Maintainer: Nicholas Bamber <nicholas@periapt.co.uk>
 Build-Depends-Indep: libtest-pod-coverage-perl, libreadonly-xs-perl,
  libreadonly-perl, libclass-accessor-perl, libtie-ixhash-perl,
- libparse-debcontrol-perl, libarray-unique-perl
+ libparse-debcontrol-perl, libarray-unique-perl, libtest-nowarnings-perl,
+ libtest-deeply-perl, dh-make-perl
 Build-Depends: debhelper (>= 7)
 Standards-Version: 3.9.2
 Homepage: http://lists.debian.org/debian-devel/2010/09/msg00208.html
@@ -15,7 +16,8 @@ Package: pkg-components
 Architecture: all
 Depends: ${misc:Depends}, ${perl:Depends}, make, libreadonly-xs-perl,
  libreadonly-perl, dpkg-dev (>= 1.14.27), libclass-accessor-perl,
- libtie-ixhash-perl, libparse-debcontrol-perl, libarray-unique-perl
+ libtie-ixhash-perl, libparse-debcontrol-perl, libarray-unique-perl,
+ dh-make-perl
 Description: debhelper tool to help maintain bundles
  Support for additional components in debian/rules
  To be activated one would need to run 'dh --with components $@' and

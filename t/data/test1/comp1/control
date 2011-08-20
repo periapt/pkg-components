@@ -1,0 +1,20 @@
+Source: comp1
+Section: devel
+Priority: optional
+Maintainer: Nicholas Bamber <nicholas@periapt.co.uk>
+Build-Depends-Indep: blah1, blah2
+Build-Depends: debhelper (>= 7)
+Standards-Version: 3.9.2
+
+Package: comp1
+Architecture: all
+Depends: dep1, dep2 (>= 0.67)
+Recommends: rec1, rec2 (= 0.650)
+Suggests: sug1 (<= 0.8) | sug2 (>= 1.4)
+Enhances: enh1
+Replaces: repl1
+Pre-Depends: pre1
+Conflicts: confl1
+Breaks: break1
+Description: first component
+ This is a test component.
