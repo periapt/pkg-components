@@ -44,15 +44,18 @@ foreach my $package (getpackages()) {
         }
     }
 
-    $component_data->build_copyright("$CWD/debian/$package.copyright");
+    my $copyright_file = "$CWD/debian/$package.copyright";
+    if (not -f $copyright_file) {
+        verbose_print("Building $copyright_file");
+        $component_data->build_copyright($copyright_file);
+    }
 
     foreach my $dependency ($component_data->substvars) {
-        addsubstvar(
-            $package,
-            "$dependency->{component}:$dependency->{substvar}",
-            $dependency->{deppackage},
-            $dependency->{rel} ? "($dependency->{rel} $dependency->{ver})" : "",
-        );
+        my $var = "$dependency->{component}:$dependency->{substvar}";
+        my $verrel =
+            $dependency->{rel} ? "($dependency->{rel} $dependency->{ver})" : "";
+        my $deppackage = $dependency->{deppackage};
+        addsubstvar($package, $var, $deppackage, $verrel);
     }
 
 }
