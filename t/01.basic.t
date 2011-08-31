@@ -1,4 +1,4 @@
-use Test::More tests => 26;
+use Test::More tests => 27;
 use Debian::Debhelper::Dh_components;
 use Readonly;
 use Perl6::Slurp;
@@ -47,8 +47,13 @@ my $expected = slurp 't/data/copyright/expected1';
 my $out = slurp $COPYRIGHT_OUT;
 is_string($out, $expected, "file contents");
 
-cmp_deeply($components->substvars(),
+my $substvars = $components->substvars();
+my @substvars = $components->substvars();
+cmp_deeply($substvars, \@substvars, 'wantarray');
+cmp_deeply($substvars,
     [
+        {deppackage=>'dep3',component=>'comp2',substvar=>'Depends',rel=>undef,ver=>undef},
+        {deppackage=>'dep4',component=>'comp2',substvar=>'Depends',rel=>'>=',ver=>'1.67'},
         {deppackage=>'dep1',component=>'comp1',substvar=>'Depends',rel=>undef,ver=>undef},
         {deppackage=>'dep2',component=>'comp1',substvar=>'Depends',rel=>'>=',ver=>'0.67'},
         {deppackage=>'rec1',component=>'comp1',substvar=>'Recommends',rel=>undef,ver=>undef},

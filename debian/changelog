@@ -1,9 +1,10 @@
 pkg-components (0.3) UNRELEASED; urgency=low
 
   TODO:
-  - Get coverage upto 100% - split out
-  - Look at substvars
+  - split out Debian::Copyright
   - Look at wrapper for uscan
+  - Check man pages
+  - Check verbosity
 
   * Added support for copyright merging
   * Updated README

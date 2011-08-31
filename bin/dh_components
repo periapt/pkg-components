@@ -45,6 +45,16 @@ foreach my $package (getpackages()) {
     }
 
     $component_data->build_copyright("$CWD/debian/$package.copyright");
+
+    foreach my $dependency ($component_data->substvars) {
+        addsubstvar(
+            $package,
+            "$dependency->{component}:$dependency->{substvar}",
+            $dependency->{deppackage},
+            $dependency->{rel} ? "($dependency->{rel} $dependency->{ver})" : "",
+        );
+    }
+
 }
 
 # Clean up the old components directory

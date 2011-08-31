@@ -1,0 +1,13 @@
+Source: comp2
+Section: devel
+Priority: optional
+Maintainer: Nicholas Bamber <nicholas@periapt.co.uk>
+Build-Depends-Indep: blah1, blah2
+Build-Depends: debhelper (>= 7)
+Standards-Version: 3.9.2
+
+Package: comp2
+Architecture: all
+Depends: dep3, dep4 (>= 1.67)
+Description: second component
+ This is a test component.

@@ -170,7 +170,7 @@ sub _read_substvars {
 
 sub substvars {
     my $self = shift;
-    return $self->{substvars};
+    return wantarray ? @{$self->{substvars}} : $self->{substvars};
 }
 
 # Module implementation here
