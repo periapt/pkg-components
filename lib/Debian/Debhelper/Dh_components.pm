@@ -273,7 +273,7 @@ writes the result to the specified location.
 =head2 substvars
 
 This method returns the appropriate C<substvar> variables parsed from
-C<control> files in each component sub-directory.
+C<control> files in each component sub-directory as a hash reference.
 
 =head1 CONFIGURATION AND ENVIRONMENT
 

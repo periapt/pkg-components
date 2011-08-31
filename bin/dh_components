@@ -99,8 +99,7 @@ following actions:
 
 =item Optionally stitch together the Debian copyright files.
 
-=item Generate the C<substvar> file from the component control files. (Not
-implemented)
+=item Generate the C<substvar> file from the component control files.
 
 =item Purge the components working directory (unless the I<--no-purge> option
 is set).
@@ -145,6 +144,16 @@ file.
 This file provides a DEP-5 fragment of the Debian copyright for this component.
 It will be merged into the main copyright file at I<package>.copyright. Any
 duplicate C<License> clauses will be shown only once.
+
+=item debian/[I<package>.]components/I<component>/control
+
+If present this file should look like a Debian control file for the component.
+The package name of the binary stanza should match the component name.
+The C<Depends>, C<Recommends>, C<Suggests>, C<Enhances>, C<Replaces>,
+C<Pre-Depends>, C<Conflicts>, C<Breaks> fields are read and turned into
+substitution variables.
+The source package stanza is ignored but can be used to document which
+build dependencies are due to the component.
 
 =back
 
