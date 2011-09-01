@@ -1,0 +1,83 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+use Getopt::Long;
+use Readonly;
+use Cwd;
+
+Readonly my $CWD => getcwd;
+
+exit(0);
+
+=head1 NAME
+
+uscan-components - wrapper around uscan for package and components
+
+=head1 SYNOPSIS
+
+B<uscan-components> [S<I<options>>]
+
+=head1 DESCRIPTION
+
+C<uscan-components> is a wrapper around C<uscan> for packages using
+C<dh_components>. Firstly it will check that both the package and all
+the components have watch files; and will return an error if they do not.
+Then it will run uscan on the main watch file. If that downloads something
+it will run uscan on each of the components. It accepts a number of 
+uscan options all of which are passed onto to each invocation of uscan.
+
+=head1 OPTIONS
+
+=over 4
+
+=item B<--report>, B<--no-download>
+
+=item B<--report-status>
+
+=item B<--destdir>
+
+=item B<--force-download>
+
+=item B<--pasv>
+
+=item B<--no-pasv>
+
+=item B<--timeout>
+
+=item B<--symlink>
+
+=item B<--no-symlink>
+
+=item B<--verbose>
+
+=item B<--no-verbose>
+
+=item B<--rename>
+
+=item B<--repack>
+
+=item B<--debug>
+
+=item B<--user-agent>, B<--useragent>
+
+=back
+
+=head1 CONFIGURATION
+
+To enable this functionality it is necessary to pass the argument
+C<--with components> to the C<dh> programa in the C<debian/rules>
+file.
+
+=head1 SEE ALSO
+
+L<debhelper(1)>
+
+This program is used with debhelper. 
+
+L<quilt(1)>
+
+=head1 AUTHOR
+
+Nicholas Bamber <nicholas@periapt.co.uk>
+
+=cut
