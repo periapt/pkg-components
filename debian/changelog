@@ -3,7 +3,6 @@ pkg-components (0.3) UNRELEASED; urgency=low
   TODO:
   - split out Debian::Copyright
   - Look at wrapper for uscan
-  - Check man pages
 
   * Added support for copyright merging
   * Updated README

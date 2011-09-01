@@ -90,7 +90,8 @@ B<dh_components> [S<I<debhelper options>>] [B<--components> I<comp>[,I<comp>,...
 =head1 DESCRIPTION
 
 C<dh_components> is a debhelper program that is responsible for handling
-additional components that come from separate upstream sources. It takes the
+additional components that come from separate upstream sources. The aim
+is to turn each component into a "mini Debian package". It takes the
 following actions:
 
 =over 
@@ -151,7 +152,9 @@ If present this file should look like a Debian control file for the component.
 The package name of the binary stanza should match the component name.
 The C<Depends>, C<Recommends>, C<Suggests>, C<Enhances>, C<Replaces>,
 C<Pre-Depends>, C<Conflicts>, C<Breaks> fields are read and turned into
-substitution variables.
+substitution variables. So if you have a component C<X> which declares a
+Depends on C<Y>, then a substvar variable C<X:Depends> will be created with
+the value C<Y>.
 The source package stanza is ignored but can be used to document which
 build dependencies are due to the component.
 

@@ -84,17 +84,23 @@ for that component but minus the header stanza. Also the license stanzas
 can be ommitted if they are present else where. The generated copyright
 files must be added to the debian/clean file.
 
-9. Make sure your build dependencies require at least pkg-components (>= 0.3).
+9. You use the substvar infrastructure to manage the component dependencies
+separately from the main dependencies. To do this creaate a control file
+in the component directory, say debian/components/x/control .
+dh_components will then create subtvar variables x:Depends, x:Breaks and so
+on.
 
-10. You probably want to list the components and their versions in the long
+10. Make sure your build dependencies require at least pkg-components (>= 0.3).
+
+11. You probably want to list the components and their versions in the long
 description.
 
-11. If you are lucky this is all you will need to do. What dpkg-buildpackage
+12. If you are lucky this is all you will need to do. What dpkg-buildpackage
 will do with what you have done is for each component and each build stage
 (one of: copy, patch, config, build, test, install) run the appropriate
 little script.
 
-12. The default build stage scripts are located in
+13. The default build stage scripts are located in
 /usr/share/pkg-components/build_stages. You can vary one or more
 build stages for the entire package by having an appropriately named script 
 in the debian/components directory. You can vary a build stage for a specifc
