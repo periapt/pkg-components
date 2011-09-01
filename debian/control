@@ -3,8 +3,7 @@ Section: devel
 Priority: optional
 Maintainer: Nicholas Bamber <nicholas@periapt.co.uk>
 Build-Depends-Indep: libtest-pod-coverage-perl, libreadonly-xs-perl,
- libreadonly-perl, libclass-accessor-perl, libtie-ixhash-perl,
- libparse-debcontrol-perl, libarray-unique-perl, libtest-nowarnings-perl,
+ libreadonly-perl, libdebian-copyright-perl, libtest-nowarnings-perl,
  libtest-deep-perl, dh-make-perl
 Build-Depends: debhelper (>= 7)
 Standards-Version: 3.9.2
@@ -15,8 +14,7 @@ Vcs-Browser: http://github.com/periapt/pkg-components/
 Package: pkg-components
 Architecture: all
 Depends: ${misc:Depends}, ${perl:Depends}, make, libreadonly-xs-perl,
- libreadonly-perl, dpkg-dev (>= 1.14.27), libclass-accessor-perl,
- libtie-ixhash-perl, libparse-debcontrol-perl, libarray-unique-perl,
+ libreadonly-perl, dpkg-dev (>= 1.14.27), libdebian-copyright-perl,
  dh-make-perl
 Description: debhelper tool to help maintain bundles
  Support for additional components in debian/rules

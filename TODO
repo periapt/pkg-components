@@ -22,11 +22,11 @@ Issues
 20.) Create test rules                                          23/10/2010
 21.) Create install rules                                       23/10/2010
 22.) Add dh_component_clean                                     n/a
-23.) Integrate with dpkg-buildpackage
-24.) Add functionality for managing copyright like files
-25.) Experiment with CGI::Application::Plugin::Authentication
-26.) Add functionality for creating substvar variables
-27.) Experiment with  CGI::Application::Plugin::Authentication
+23.) Integrate with dpkg-buildpackage                           01/09/2011
+24.) Add functionality for managing copyright like files        01/09/2011
+25.) Experiment with CGI::Application::Plugin::Authentication   01/09/2011
+26.) Add functionality for creating substvar variables          01/09/2011
+27.) Experiment with  CGI::Application::Plugin::Authentication  01/09/2011
 28.) uscan wrapper
 29.) Experiment with  CGI::Application::Plugin::Authentication
 30.) Fix copyright                                              23/10/2010

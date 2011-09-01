@@ -1,14 +1,12 @@
 pkg-components (0.3) UNRELEASED; urgency=low
 
   TODO:
-  - split out Debian::Copyright
   - Look at wrapper for uscan
 
   * Added support for copyright merging
-  * Updated README
-  * Updated debian/copyright
+  * Updated README and TODO and debian/copyright
   * Raised standards version to 3.9.2
-  * Added lintian override for License.pm
+  * Added support for substvars
 
  -- Nicholas Bamber <nicholas@periapt.co.uk>  Sun, 15 May 2011 19:32:11 +0100
 
