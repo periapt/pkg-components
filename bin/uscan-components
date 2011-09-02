@@ -7,6 +7,11 @@ use Readonly;
 use Cwd;
 
 Readonly my $CWD => getcwd;
+Readonly my %VALUED_ARGS=>(
+    useragent=>1,
+    timeout=>1,
+    destdir=>1,
+);
 
 my $dry_run = 0;
 my $help = 0;
@@ -15,7 +20,6 @@ my %args = (
     'dry-run'   => \$dry_run,
     'help'      => \$help,
     'man'       => \$man,
-    'symlink'   => 1,
 );
 
 GetOptions(\%args,
@@ -42,11 +46,25 @@ delete $args{help};
 delete $args{man};
 delete $args{'dry-run'};
 
+my $usage = "uscan ";
+foreach my $arg (keys %args) {
+    if ($VALUED_ARGS{$arg}) {
+        $usage .= "--$arg=$args{$arg} ";
+    }
+    elsif ($args{$arg}) {
+        $usage .= "--$arg ";
+    }
+    else {
+        $usage .= "--no-$arg ";
+    }
+}
+        
+
 if ($dry_run) {
-    print "This is a dry-run.\n";
+    print "This is a dry-run: $usage\n";
 }
 else {
-    print "This is for real.\n";
+    print "This is for real:  $usage\n";
 }
 
 exit(0);
