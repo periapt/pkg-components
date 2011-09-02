@@ -13,17 +13,34 @@ my $help = 0;
 my $man = 0;
 my %args = (
     'dry-run'   => \$dry_run,
-    'help'    => \$help,
+    'help'      => \$help,
     'man'       => \$man,
+    'symlink'   => 1,
 );
 
 GetOptions(\%args,
     'dry-run!',
     'help|?',
     'man',
+    'report!',
+    'report-status!',
+    'destdir=s',
+    'timeout=i',
+    'pasv!',
+    'symlink!',
+    'pasv!',
+    'verbose!',
+    'repack',
+    'rename',
+    'debug',
+    'useragent|user-agent=s',
 ) or pod2usage(2);
 pod2usage(1) if $help;
 pod2usage(-exitstatus => 0, -verbose=>2) if $man;
+
+delete $args{help};
+delete $args{man};
+delete $args{'dry-run'};
 
 if ($dry_run) {
     print "This is a dry-run.\n";
@@ -68,7 +85,7 @@ Prints a brief help message and exits.
 
 Prints the manual page and exits.
 
-=item B<--report>, B<--no-download>
+=item B<--report>
 
 =item B<--report-status>
 
