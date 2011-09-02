@@ -9,11 +9,22 @@ use Cwd;
 Readonly my $CWD => getcwd;
 
 my $dry_run = 0;
+my $help = 0;
+my $man = 0;
 my %args = (
-    'dry-run' => \$dry_run,
+    'dry-run'   => \$dry_run,
+    'help'    => \$help,
+    'man'       => \$man,
 );
 
-GetOptions(\%args, 'dry-run!');
+GetOptions(\%args,
+    'dry-run!',
+    'help|?',
+    'man',
+) or pod2usage(2);
+pod2usage(1) if $help;
+pod2usage(-exitstatus => 0, -verbose=>2) if $man;
+
 if ($dry_run) {
     print "This is a dry-run.\n";
 }
@@ -56,8 +67,6 @@ Prints a brief help message and exits.
 =item B<--man>
 
 Prints the manual page and exits.
-
-=item B<--version>
 
 =item B<--report>, B<--no-download>
 
