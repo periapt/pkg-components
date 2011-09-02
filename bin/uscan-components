@@ -2,10 +2,24 @@
 use strict;
 use warnings;
 use Getopt::Long;
+use Pod::Usage;
 use Readonly;
 use Cwd;
 
 Readonly my $CWD => getcwd;
+
+my $dry_run = 0;
+my %args = (
+    'dry-run' => \$dry_run,
+);
+
+GetOptions(\%args, 'dry-run!');
+if ($dry_run) {
+    print "This is a dry-run.\n";
+}
+else {
+    print "This is for real.\n";
+}
 
 exit(0);
 
@@ -30,13 +44,26 @@ uscan options all of which are passed onto to each invocation of uscan.
 
 =over 4
 
+=item B<--dry-run>
+
+If set no actual uscan will not actually be called but those that might be
+will be listed.
+
+=item B<--help>
+
+Prints a brief help message and exits.
+
+=item B<--man>
+
+Prints the manual page and exits.
+
+=item B<--version>
+
 =item B<--report>, B<--no-download>
 
 =item B<--report-status>
 
 =item B<--destdir>
-
-=item B<--force-download>
 
 =item B<--pasv>
 
@@ -60,21 +87,13 @@ uscan options all of which are passed onto to each invocation of uscan.
 
 =item B<--user-agent>, B<--useragent>
 
+All of the these arguments are passed straight to each uscan invocation.
+
 =back
-
-=head1 CONFIGURATION
-
-To enable this functionality it is necessary to pass the argument
-C<--with components> to the C<dh> programa in the C<debian/rules>
-file.
 
 =head1 SEE ALSO
 
-L<debhelper(1)>
-
-This program is used with debhelper. 
-
-L<quilt(1)>
+L<uscan(1)>
 
 =head1 AUTHOR
 
