@@ -4,15 +4,18 @@ use warnings;
 use Getopt::Long;
 use Pod::Usage;
 use Readonly;
-use Cwd;
+use Carp;
+use DirHandle;
 
-Readonly my $CWD => getcwd;
 Readonly my %VALUED_ARGS=>(
     useragent=>1,
     timeout=>1,
     destdir=>1,
 );
+Readonly my $MAIN_WATCH_FILE => 'debian/watch';
+Readonly my $COMPONENTS_DIR => 'debian/components';
 
+my %watch_files;
 my $dry_run = 0;
 my $help = 0;
 my $man = 0;
@@ -46,6 +49,24 @@ delete $args{help};
 delete $args{man};
 delete $args{'dry-run'};
 
+if (not -r $MAIN_WATCH_FILE) {
+    croak "Could not read $MAIN_WATCH_FILE";
+}
+my $dir = DirHandle->new($COMPONENTS_DIR);
+if (defined $dir) {
+    for(my $file = $dir->read; defined $file; $file = $dir->read) {
+        next if $file =~ m{\A\.}xms;
+        next if not -d $file;
+        $watch_files{$file} = "$COMPONENTS_DIR/$file/watch";
+        if (not -r $watch_files{$file}) {
+            croak "Could not read $watch_files{$file}";
+        }
+    }
+}
+else {
+    croak "Could not read $COMPONENTS_DIR";
+}
+
 my $usage = "uscan ";
 foreach my $arg (keys %args) {
     if ($VALUED_ARGS{$arg}) {
@@ -58,16 +79,36 @@ foreach my $arg (keys %args) {
         $usage .= "--no-$arg ";
     }
 }
-        
 
-if ($dry_run) {
-    print "This is a dry-run: $usage\n";
-}
-else {
-    print "This is for real:  $usage\n";
-}
+_doit('yes') or exit(1);
 
 exit(0);
+
+sub _doit {
+    my $command = shift;
+    if ($dry_run) {
+        print "$command\n";
+        return 1;
+    }
+    elsif (system($command) == 0) {
+        return 1;
+    }
+    elsif ($? == -1) {
+        print "failed to execute: $!\n";
+    }
+    elsif ($? & 127) {
+        my $signal = $? & 127;
+        my $preposition = $? & 128 ? 'with' : 'without';
+        print "child died with signal $signal, $preposition coredump\n";
+    }
+    else {
+        my $value = $? >> 8;
+        print "child exited with value $value\n"
+    }
+    return 0;
+}
+
+#    my $command = "$usage --watch $file";
 
 =head1 NAME
 
