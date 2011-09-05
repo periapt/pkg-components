@@ -80,7 +80,14 @@ foreach my $arg (keys %args) {
     }
 }
 
-_doit('yes') or exit(1);
+if (_doit("$usage --watch=$MAIN_WATCH_FILE")) {
+    foreach my $component (keys %watch_files) {
+        if ($dry_run) {
+            print "\t";
+        }
+        exit(1) if not _doit("$usage --watch=$watch_files{$component}");
+    }
+}
 
 exit(0);
 
