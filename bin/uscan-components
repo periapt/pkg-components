@@ -19,10 +19,12 @@ my %watch_files;
 my $dry_run = 0;
 my $help = 0;
 my $man = 0;
+my $verbose = 0;
 my %args = (
     'dry-run'   => \$dry_run,
     'help'      => \$help,
     'man'       => \$man,
+    'verbose'   => \$verbose,
 );
 
 GetOptions(\%args,
@@ -48,6 +50,7 @@ pod2usage(-exitstatus => 0, -verbose=>2) if $man;
 delete $args{help};
 delete $args{man};
 delete $args{'dry-run'};
+delete $args{verbose};
 
 if (not -r $MAIN_WATCH_FILE) {
     croak "Could not read $MAIN_WATCH_FILE";
@@ -67,7 +70,7 @@ else {
     croak "Could not read $COMPONENTS_DIR";
 }
 
-my $usage = "uscan ";
+my $usage = "uscan --verbose ";
 foreach my $arg (keys %args) {
     if ($VALUED_ARGS{$arg}) {
         $usage .= "--$arg=$args{$arg} ";
@@ -97,8 +100,12 @@ sub _doit {
         print "$command\n";
         return 1;
     }
-    elsif (system($command) == 0) {
-        return 1;
+    my $output = `$command`;
+    if ($verbose) {
+        print $output;
+    }
+    if ($? == 0) {
+        return $output;
     }
     elsif ($? == -1) {
         print "failed to execute: $!\n";
@@ -112,7 +119,7 @@ sub _doit {
         my $value = $? >> 8;
         print "child exited with value $value\n"
     }
-    return 0;
+    return;
 }
 
 #    my $command = "$usage --watch $file";
@@ -151,6 +158,15 @@ Prints a brief help message and exits.
 
 Prints the manual page and exits.
 
+=item B<--verbose>
+
+=item B<--no-verbose>
+
+These options simulate the verbosity flag being passed to C<uscan>.
+The actual invocations must always be verbose as the information is required
+to correctly rename the component files. However the output is not passed back
+to the user if verbosity is turned off.
+
 =item B<--report>
 
 =item B<--report-status>
@@ -166,10 +182,6 @@ Prints the manual page and exits.
 =item B<--symlink>
 
 =item B<--no-symlink>
-
-=item B<--verbose>
-
-=item B<--no-verbose>
 
 =item B<--rename>
 
