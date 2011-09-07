@@ -18,6 +18,19 @@ sub parse {
     my $self = shift;
     my $string = shift;
     my $results = {};
+
+    if ($string =~ m{
+                ^              # beginning of line
+                Newest\sversion\son\sremote\ssite\sis\s
+               (\S+)            # remote version
+               ,\slocal\sversion\sis\s
+               (\S+)            # local version
+               $                # end of line
+    }xms) {
+        $results->{remote_version} = $1;
+        $results->{local_version} = $2;
+    }
+
     return $results;
 }
 
