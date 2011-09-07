@@ -1,0 +1,14 @@
+-- Scanning for watchfiles in .
+-- Found watchfile in ./debian
+-- In debian/watch, processing watchfile line:
+   http://search.cpan.org/dist/CGI-Application-Plugin-Authentication/   .*/CGI-Application-Plugin-Authentication-v?(\d[\d.-]+)\.(?:tar(?:\.gz|\.bz2)?|tgz|zip)$
+-- Found the following matching hrefs:
+     /CPAN/authors/id/S/SI/SILASMONK/CGI-Application-Plugin-Authentication-0.20.tar.gz
+Newest version on remote site is 0.20, local version is 0.20
+ => Package is up to date
+Newest version on remote site is 0.20, local version is 0.20
+ => Forcing download as requested
+-- Downloading updated package CGI-Application-Plugin-Authentication-0.20.tar.gz
+-- Successfully downloaded updated package CGI-Application-Plugin-Authentication-0.20.tar.gz
+    and symlinked libcgi-application-plugin-authentication-perl_0.20.orig.tar.gz to it
+-- Scan finished
