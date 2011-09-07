@@ -186,7 +186,7 @@ Debian::Debhelper::Dh_components - Data for Debian components handling
 
 =head1 VERSION
 
-This document describes Debian::Debhelper::Dh_components version 0.1
+This document describes Debian::Debhelper::Dh_components version 0.3
 
 
 =head1 SYNOPSIS
