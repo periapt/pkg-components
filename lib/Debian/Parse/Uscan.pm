@@ -19,6 +19,7 @@ sub parse {
     my $string = shift;
     my $results = {};
 
+    # Get versions
     if ($string =~ m{
                 ^              # beginning of line
                 Newest\sversion\son\sremote\ssite\sis\s
@@ -31,6 +32,7 @@ sub parse {
         $results->{local_version} = $2;
     }
 
+    # Downloaded file
     if ($string =~ m{
                 ^              # beginning of line
                 \-\-\s
@@ -40,6 +42,19 @@ sub parse {
     }xms) {
         $results->{downloaded_file} = $1;
     }
+
+    # Symlink
+    if ($string =~ m{
+                ^              # beginning of line
+                \s+            # large initial space
+                and\ssymlinked\s
+                (\S+)          # symlink
+                \sto\sit
+                $              # end of line
+    }xms) {
+        $results->{symlink} = $1;
+    }
+
     return $results;
 }
 

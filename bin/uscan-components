@@ -83,7 +83,7 @@ foreach my $arg (keys %args) {
     }
 }
 
-if (_doit("$usage --watch=$MAIN_WATCH_FILE")) {
+if (my $main_results = _doit("$usage --watch=$MAIN_WATCH_FILE")) {
     foreach my $component (keys %watch_files) {
         if ($dry_run) {
             print "\t";
