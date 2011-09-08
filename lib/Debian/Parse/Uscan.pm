@@ -31,6 +31,15 @@ sub parse {
         $results->{local_version} = $2;
     }
 
+    if ($string =~ m{
+                ^              # beginning of line
+                \-\-\s
+                Successfully\sdownloaded\supdated\spackage\s
+                (\S+)          # downloaded file
+                $              # end of line
+    }xms) {
+        $results->{downloaded_file} = $1;
+    }
     return $results;
 }
 

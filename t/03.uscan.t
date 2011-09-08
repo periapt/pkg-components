@@ -11,5 +11,6 @@ cmp_deeply($parser->parse($output),
     {
         local_version => '0.20',
         remote_version => '0.20',
+        downloaded_file => 'CGI-Application-Plugin-Authentication-0.20.tar.gz',
     },
     'results');
