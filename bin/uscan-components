@@ -6,6 +6,7 @@ use Pod::Usage;
 use Readonly;
 use Carp;
 use DirHandle;
+use Perl6::Slurp;
 
 Readonly my %VALUED_ARGS=>(
     useragent=>1,
@@ -16,15 +17,18 @@ Readonly my $MAIN_WATCH_FILE => 'debian/watch';
 Readonly my $COMPONENTS_DIR => 'debian/components';
 
 my %watch_files;
+my %versions;
 my $dry_run = 0;
 my $help = 0;
 my $man = 0;
 my $verbose = 0;
+my $upgrade = 0;
 my %args = (
     'dry-run'   => \$dry_run,
     'help'      => \$help,
     'man'       => \$man,
     'verbose'   => \$verbose,
+    'upgrade'   => \$upgrade,
 );
 
 GetOptions(\%args,
@@ -32,6 +36,7 @@ GetOptions(\%args,
     'help|?',
     'man',
     'report!',
+    'upgrade!',
     'report-status!',
 #    'destdir=s',
     'timeout=i',
@@ -51,6 +56,7 @@ delete $args{help};
 delete $args{man};
 delete $args{'dry-run'};
 delete $args{verbose};
+delete $args{upgrade};
 
 if (not -r $MAIN_WATCH_FILE) {
     croak "Could not read $MAIN_WATCH_FILE";
@@ -63,6 +69,13 @@ if (defined $dir) {
         $watch_files{$file} = "$COMPONENTS_DIR/$file/watch";
         if (not -r $watch_files{$file}) {
             croak "Could not read $watch_files{$file}";
+        }
+        my $version_file = "$COMPONENTS_DIR/$file/version";
+        if (-r $version_file) {
+            $versions{$file} = slurp $version_file;
+        }
+        else {
+            $versions{$file} = undef;
         }
     }
 }
@@ -82,13 +95,22 @@ foreach my $arg (keys %args) {
         $usage .= "--no-$arg ";
     }
 }
+if (not $upgrade) {
+    $usage .= " --force-download";
+}
 
-if (my $main_results = _doit("$usage --watch=$MAIN_WATCH_FILE")) {
+my $main_uscan = "$usage --watch=$MAIN_WATCH_FILE";
+if (not $upgrade) {
+    $main_uscan .= " --download-current-version";
+}
+if (my $main_results = _doit($main_uscan)) {
     foreach my $component (keys %watch_files) {
-        if ($dry_run) {
-            print "\t";
+        my $comp_uscan = $dry_run ? "\t" : "";
+        $comp_uscan .= "$usage --watch=$watch_files{$component}";
+        if (not $upgrade and defined $versions{$component}) {
+            $comp_uscan .= " --upstream-version=$versions{$component}";
         }
-        exit(1) if not _doit("$usage --watch=$watch_files{$component}");
+        exit(1) if not _doit($comp_uscan);
     }
 }
 
@@ -183,21 +205,11 @@ to the user if verbosity is turned off.
 
 =item B<--report-status>
 
-# =item B<--destdir>
-
 =item B<--pasv>
 
 =item B<--no-pasv>
 
 =item B<--timeout>
-
-# =item B<--symlink>
-
-# =item B<--no-symlink>
-
-# =item B<--rename>
-
-# =item B<--repack>
 
 =item B<--debug>
 
@@ -206,6 +218,18 @@ to the user if verbosity is turned off.
 All of the these arguments are passed straight to each uscan invocation.
 
 =back
+
+=cut
+
+# =item B<--destdir>
+
+# =item B<--symlink>
+
+# =item B<--no-symlink>
+
+# =item B<--rename>
+
+# =item B<--repack>
 
 =head1 SEE ALSO
 

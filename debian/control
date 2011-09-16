@@ -15,7 +15,7 @@ Package: pkg-components
 Architecture: all
 Depends: ${misc:Depends}, ${perl:Depends}, make, libreadonly-xs-perl,
  libreadonly-perl, dpkg-dev (>= 1.14.27), libdebian-copyright-perl,
- dh-make-perl
+ dh-make-perl, libperl6-slurp-perl
 Description: debhelper tool to help maintain bundles
  Support for additional components in debian/rules
  To be activated one would need to run 'dh --with components $@' and
