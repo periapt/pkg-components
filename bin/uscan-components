@@ -33,14 +33,14 @@ GetOptions(\%args,
     'man',
     'report!',
     'report-status!',
-    'destdir=s',
+#    'destdir=s',
     'timeout=i',
     'pasv!',
-    'symlink!',
+#    'symlink!',
     'pasv!',
     'verbose!',
-    'repack',
-    'rename',
+#    'repack',
+#    'rename',
     'debug',
     'useragent|user-agent=s',
 ) or pod2usage(2);
@@ -145,6 +145,18 @@ uscan options all of which are passed onto to each invocation of uscan.
 
 =over 4
 
+=item B<--upgrade>
+
+=item B<--no-upgrade>
+
+By default the current versions of the various components will be downloaded.
+This resolves into B<--force-download> and either B<--download-current-version>
+or B<--upstream-version> for the main and component tarballs respectively.
+The current versions of the components are stored in the files:
+C<debian/components/>I<comp>C</version>.
+If the B<--upgrade> option is applied then instead the latest version will
+be requested and the version files updated accordingly.
+
 =item B<--dry-run>
 
 If set no actual uscan will not actually be called but those that might be
@@ -171,7 +183,7 @@ to the user if verbosity is turned off.
 
 =item B<--report-status>
 
-=item B<--destdir>
+# =item B<--destdir>
 
 =item B<--pasv>
 
@@ -179,13 +191,13 @@ to the user if verbosity is turned off.
 
 =item B<--timeout>
 
-=item B<--symlink>
+# =item B<--symlink>
 
-=item B<--no-symlink>
+# =item B<--no-symlink>
 
-=item B<--rename>
+# =item B<--rename>
 
-=item B<--repack>
+# =item B<--repack>
 
 =item B<--debug>
 
