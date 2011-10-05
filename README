@@ -34,8 +34,6 @@ can easily be overridden.
 
 TODO
 
-* Need to generate substvars so that dependencies can be rationally managed.
-* Need to provide some integration with uscan.
 * Probably ought to make the whole thing "build system" aware.
 * Need better support for other bits and pieces like component changelogs.
 * Eventually could do with interest from other languages .
@@ -94,6 +92,10 @@ on.
 
 11. You probably want to list the components and their versions in the long
 description.
+
+12. For each component directory you should have a watch file and a
+version file. The latter just contains the upstream version of
+the component and is maintained by the uscan-components script.
 
 12. If you are lucky this is all you will need to do. What dpkg-buildpackage
 will do with what you have done is for each component and each build stage

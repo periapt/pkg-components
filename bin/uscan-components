@@ -7,6 +7,7 @@ use Readonly;
 use Carp;
 use DirHandle;
 use Perl6::Slurp;
+use Debian::Parse::Uscan;
 
 Readonly my %VALUED_ARGS=>(
     useragent=>1,
@@ -15,6 +16,9 @@ Readonly my %VALUED_ARGS=>(
 );
 Readonly my $MAIN_WATCH_FILE => 'debian/watch';
 Readonly my $COMPONENTS_DIR => 'debian/components';
+
+# This might need reconsideration if we ever support --destdir
+Readonly my $DEST_DIR => '..';
 
 my %watch_files;
 my %versions;
@@ -41,7 +45,6 @@ GetOptions(\%args,
 #    'destdir=s',
     'timeout=i',
     'pasv!',
-#    'symlink!',
     'pasv!',
     'verbose!',
 #    'repack',
@@ -99,18 +102,34 @@ if (not $upgrade) {
     $usage .= " --force-download";
 }
 
+my $uscan_parser = Debian::Parse::Uscan->new;
+
 my $main_uscan = "$usage --watch=$MAIN_WATCH_FILE";
 if (not $upgrade) {
     $main_uscan .= " --download-current-version";
 }
 if (my $main_results = _doit($main_uscan)) {
+    my $main_details = $dry_run ? "" : $uscan_parser->parse($main_results);
     foreach my $component (keys %watch_files) {
         my $comp_uscan = $dry_run ? "\t" : "";
-        $comp_uscan .= "$usage --watch=$watch_files{$component}";
+        $comp_uscan .= "$usage --watch=$watch_files{$component} --no-symlink";
         if (not $upgrade and defined $versions{$component}) {
-            $comp_uscan .= " --upstream-version=$versions{$component}";
+            $comp_uscan .= " --download-version=$versions{$component}";
         }
-        exit(1) if not _doit($comp_uscan);
+        my $comp_results = _doit($comp_uscan);
+        exit(1) if not $comp_results;
+        if (not $dry_run and $comp_results) {
+            my $comp_details = $uscan_parser->parse($comp_results);
+            my $symlink = $main_details->{symlink};
+            $symlink =~ s{\.orig\.}{.orig-$component}xms;
+            my $comp_ln =
+                "cd $DEST_DIR"
+                ."&& ln -s $comp_details->{downloaded_file} $symlink";
+            exit(1) if not _doit($comp_ln);
+            if (open my $fh, ">", "$COMPONENTS_DIR/$component/version") {
+                print {$fh} $comp_details->{remote_version};
+            }
+        }
     }
 }
 
@@ -143,8 +162,6 @@ sub _doit {
     }
     return;
 }
-
-#    my $command = "$usage --watch $file";
 
 =head1 NAME
 
@@ -219,17 +236,11 @@ All of the these arguments are passed straight to each uscan invocation.
 
 =back
 
-=cut
+=head1 FILES
 
-# =item B<--destdir>
-
-# =item B<--symlink>
-
-# =item B<--no-symlink>
-
-# =item B<--rename>
-
-# =item B<--repack>
+For each component the watch file is assumed to be in
+C<debian/components/>I<component>C</watch> and the component
+version is maintained in C<debian/components/>I<component>C</version>.
 
 =head1 SEE ALSO
 
