@@ -1,0 +1,9 @@
+This package is built using pkg-components. To download current
+and latest upstream tarballs see the uscan-components script in that
+package.
+
+Note also that the binary copyright file is a merger of 
+debian/components/copyright.in and debian/components/*/copyright.
+Various Debian tools require a static file in debian/copyright.
+If for some reason the generated copyright file changes
+copy from debian/$PACKAGE.copyright to debian/copyright after a build.

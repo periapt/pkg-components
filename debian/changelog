@@ -5,6 +5,7 @@ pkg-components (0.3) UNRELEASED; urgency=low
   * Raised standards version to 3.9.2
   * Added support for substvars
   * Added wrapper for uscan
+  * Added example README.source
 
  -- Nicholas Bamber <nicholas@periapt.co.uk>  Sun, 15 May 2011 19:32:11 +0100
 

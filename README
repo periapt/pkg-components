@@ -36,7 +36,10 @@ TODO
 
 * Probably ought to make the whole thing "build system" aware.
 * Need better support for other bits and pieces like component changelogs.
+* For components relying on Makefile.PL it seems to be necessary to set
+  PERL5LIB in the testing build stage
 * Eventually could do with interest from other languages .
+* File::Slurp might be better than Perl6::Slurp.
 
 INSTRUCTIONS
 
@@ -102,7 +105,10 @@ will do with what you have done is for each component and each build stage
 (one of: copy, patch, config, build, test, install) run the appropriate
 little script.
 
-13. The default build stage scripts are located in
+13. The pkg-components package comes with an example README.source explaining
+the peculiarities of a package built using pkg-components.
+
+14. The default build stage scripts are located in
 /usr/share/pkg-components/build_stages. You can vary one or more
 build stages for the entire package by having an appropriately named script 
 in the debian/components directory. You can vary a build stage for a specifc

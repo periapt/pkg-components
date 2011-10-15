@@ -27,7 +27,7 @@ Issues
 25.) Experiment with CGI::Application::Plugin::Authentication   01/09/2011
 26.) Add functionality for creating substvar variables          01/09/2011
 27.) Experiment with  CGI::Application::Plugin::Authentication  01/09/2011
-28.) uscan wrapper
-29.) Experiment with  CGI::Application::Plugin::Authentication
+28.) uscan wrapper                                              15/10/2011
+29.) Experiment with WWW::Search                                15/10/2011
 30.) Fix copyright                                              23/10/2010
 31.) Get Lintian cleanliness                                    23/10/2010

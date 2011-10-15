@@ -118,13 +118,19 @@ if (my $main_results = _doit($main_uscan)) {
         }
         my $comp_results = _doit($comp_uscan);
         exit(1) if not $comp_results;
-        if (not $dry_run and $comp_results) {
+        if (not $dry_run) {
             my $comp_details = $uscan_parser->parse($comp_results);
             my $symlink = $main_details->{symlink};
-            $symlink =~ s{\.orig\.}{.orig-$component}xms;
-            my $comp_ln =
-                "cd $DEST_DIR"
-                ."&& ln -s $comp_details->{downloaded_file} $symlink";
+            $symlink =~ s{\.orig\.}{.orig-$component\.}xms;
+            my $comp_ln = "";
+            if ($comp_results) {
+                $comp_ln = "ln -s $DEST_DIR/$comp_details->{downloaded_file} $DEST_DIR/$symlink";
+            }
+            else {
+                my $oldtar = $symlink;
+                $oldtar =~ s{\.[^\.]+\.orig-}{\.$main_details->{local_version}\.orig-}xms;
+                $comp_ln = "cp $DEST_DIR/$oldtar $DEST_DIR/$symlink";
+            }
             exit(1) if not _doit($comp_ln);
             if (open my $fh, ">", "$COMPONENTS_DIR/$component/version") {
                 print {$fh} $comp_details->{remote_version};
