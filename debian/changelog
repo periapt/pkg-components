@@ -1,13 +1,13 @@
-pkg-components (0.3) UNRELEASED; urgency=low
+pkg-components (0.3) unstable; urgency=low
 
   * Added support for copyright merging
   * Updated README and TODO and debian/copyright
   * Raised standards version to 3.9.2
   * Added support for substvars
-  * Added wrapper for uscan
+  * Added wrapper for uscan (uscan-components)
   * Added example README.source
 
- -- Nicholas Bamber <nicholas@periapt.co.uk>  Sun, 15 May 2011 19:32:11 +0100
+ -- Nicholas Bamber <nicholas@periapt.co.uk>  Fri, 21 Oct 2011 22:12:03 +0100
 
 pkg-components (0.2) unstable; urgency=low
 

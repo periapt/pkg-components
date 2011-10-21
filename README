@@ -34,6 +34,7 @@ can easily be overridden.
 
 TODO
 
+* The uscan-components script is somewhat in a beta state at the moment.
 * Probably ought to make the whole thing "build system" aware.
 * Need better support for other bits and pieces like component changelogs.
 * For components relying on Makefile.PL it seems to be necessary to set
