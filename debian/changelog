@@ -6,6 +6,7 @@ pkg-components (0.3) unstable; urgency=low
   * Added support for substvars
   * Added wrapper for uscan (uscan-components)
   * Added example README.source
+  * Added source override for debian copyright format
 
  -- Nicholas Bamber <nicholas@periapt.co.uk>  Fri, 21 Oct 2011 22:12:03 +0100
 
